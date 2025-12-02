@@ -1,4 +1,6 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.InputSystem.Users;
 
 public class SimplePlayerSpawner : MonoBehaviour
 {
@@ -31,6 +33,53 @@ public class SimplePlayerSpawner : MonoBehaviour
         else
         {
             Debug.LogWarning("Player 2 not assigned in SimplePlayerSpawner!");
+        }
+
+        // Assegna i controller specifici a ciascun player
+        AssignControllersToPlayers();
+    }
+
+    void AssignControllersToPlayers()
+    {
+        // Trova tutti i gamepad connessi
+        var gamepads = Gamepad.all;
+
+        Debug.Log($"Trovati {gamepads.Count} gamepad connessi");
+
+        if (gamepads.Count < 2)
+        {
+            Debug.LogError($"Servono 2 controller! Trovati solo {gamepads.Count}");
+            return;
+        }
+
+        // Mostra info sui gamepad
+        for (int i = 0; i < gamepads.Count; i++)
+        {
+            Debug.Log($"Gamepad {i}: {gamepads[i].displayName} (Device ID: {gamepads[i].deviceId})");
+        }
+
+        // Assegna il primo gamepad a Player 1
+        if (player1 != null)
+        {
+            PlayerInput input1 = player1.GetComponent<PlayerInput>();
+            if (input1 != null)
+            {
+                // Unpair tutti i dispositivi prima
+                InputUser.PerformPairingWithDevice(gamepads[0], input1.user, InputUserPairingOptions.UnpairCurrentDevicesFromUser);
+                Debug.Log($"Player 1 ora usa SOLO: {gamepads[0].displayName}");
+            }
+        }
+
+        // Assegna il secondo gamepad a Player 2
+        if (player2 != null)
+        {
+            PlayerInput input2 = player2.GetComponent<PlayerInput>();
+            if (input2 != null)
+            {
+                // Unpair tutti i dispositivi prima
+                InputUser.PerformPairingWithDevice(gamepads[1], input2.user, InputUserPairingOptions.UnpairCurrentDevicesFromUser);
+                Debug.Log($"Player 2 ora usa SOLO: {gamepads[1].displayName}");
+            }
         }
     }
 }
