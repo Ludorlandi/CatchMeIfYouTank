@@ -46,9 +46,9 @@ public class SimplePlayerSpawner : MonoBehaviour
 
         Debug.Log($"Trovati {gamepads.Count} gamepad connessi");
 
-        if (gamepads.Count < 2)
+        if (gamepads.Count == 0)
         {
-            Debug.LogError($"Servono 2 controller! Trovati solo {gamepads.Count}");
+            Debug.LogError("Nessun gamepad trovato! Connetti almeno un controller.");
             return;
         }
 
@@ -62,7 +62,7 @@ public class SimplePlayerSpawner : MonoBehaviour
         if (player1 != null)
         {
             PlayerInput input1 = player1.GetComponent<PlayerInput>();
-            if (input1 != null)
+            if (input1 != null && gamepads.Count > 0)
             {
                 // Unpair tutti i dispositivi prima
                 InputUser.PerformPairingWithDevice(gamepads[0], input1.user, InputUserPairingOptions.UnpairCurrentDevicesFromUser);
@@ -70,15 +70,24 @@ public class SimplePlayerSpawner : MonoBehaviour
             }
         }
 
-        // Assegna il secondo gamepad a Player 2
+        // Assegna il secondo gamepad a Player 2 (SE DISPONIBILE)
         if (player2 != null)
         {
             PlayerInput input2 = player2.GetComponent<PlayerInput>();
             if (input2 != null)
             {
-                // Unpair tutti i dispositivi prima
-                InputUser.PerformPairingWithDevice(gamepads[1], input2.user, InputUserPairingOptions.UnpairCurrentDevicesFromUser);
-                Debug.Log($"Player 2 ora usa SOLO: {gamepads[1].displayName}");
+                if (gamepads.Count > 1)
+                {
+                    // Due controller: Player 2 usa il secondo
+                    InputUser.PerformPairingWithDevice(gamepads[1], input2.user, InputUserPairingOptions.UnpairCurrentDevicesFromUser);
+                    Debug.Log($"Player 2 ora usa SOLO: {gamepads[1].displayName}");
+                }
+                else
+                {
+                    // Un solo controller: disabilita Player 2
+                    Debug.LogWarning("Solo 1 controller trovato - Player 2 DISABILITATO");
+                    player2.SetActive(false);
+                }
             }
         }
     }
