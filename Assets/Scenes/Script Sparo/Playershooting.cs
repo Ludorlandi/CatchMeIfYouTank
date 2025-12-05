@@ -8,15 +8,25 @@ public class PlayerShooting : MonoBehaviour
     [SerializeField] private Transform firePoint; // Il punto da cui parte il proiettile
     [SerializeField] private float cannonRotationSpeed = 10f;
 
+    [Header("Ammo Settings")]
+    [SerializeField] private int maxAmmo = 10; // Munizioni massime
+    [SerializeField] private int startingAmmo = 10; // Munizioni iniziali (può essere diverso da maxAmmo)
+    private int currentAmmo; // Munizioni attuali (private, gestito internamente)
+    [SerializeField] private bool infiniteAmmo = false; // Per testing
+
     [Header("Projectile Settings")]
     [SerializeField] private GameObject projectilePrefab; // Il prefab del proiettile
-    [SerializeField] private float minProjectileSpeed = 5f; // Velocit� minima (senza carica)
-    [SerializeField] private float maxProjectileSpeed = 30f; // Velocit� massima (carica completa)
+    [SerializeField] private float minProjectileSpeed = 5f; // Velocità minima (senza carica)
+    [SerializeField] private float maxProjectileSpeed = 30f; // Velocità massima (carica completa)
     [SerializeField] private float maxChargeTime = 2f; // Tempo per raggiungere la carica massima
     [SerializeField] private float fireRate = 0.5f; // Tempo minimo tra un colpo e l'altro
 
     [Header("Aiming Settings")]
-    [SerializeField] private float minAimMagnitude = 0.2f; // Sensibilit� minima della levetta
+    [SerializeField] private float minAimMagnitude = 0.2f; // Sensibilità minima della levetta
+
+    [Header("UI References")]
+    [SerializeField] private UnityEngine.UI.Text ammoText; // Testo per mostrare le munizioni
+    [SerializeField] private UnityEngine.UI.Slider chargeBar; // Barra di carica
 
     private Vector2 aimInput;
     private Vector3 currentAimDirection;
@@ -46,11 +56,18 @@ public class PlayerShooting : MonoBehaviour
 
         if (projectilePrefab == null)
         {
-            Debug.LogError("Projectile Prefab non assegnato! Lo sparo non funzioner�.");
+            Debug.LogError("Projectile Prefab non assegnato! Lo sparo non funzionerà.");
         }
 
         // Inizializza la direzione di mira (verso destra di default)
         currentAimDirection = Vector3.right;
+
+        // Inizializza le munizioni con startingAmmo
+        currentAmmo = startingAmmo;
+
+        // Inizializza UI
+        UpdateAmmoUI();
+        UpdateChargeUI();
     }
 
     // Chiamato automaticamente dal Input System per la levetta destra
@@ -85,7 +102,7 @@ public class PlayerShooting : MonoBehaviour
 
     void UpdateAimDirection()
     {
-        // Solo se la levetta � mossa abbastanza
+        // Solo se la levetta è mossa abbastanza
         if (aimInput.magnitude > minAimMagnitude)
         {
             // Converti l'input 2D in direzione 3D (sul piano XY)
@@ -99,6 +116,10 @@ public class PlayerShooting : MonoBehaviour
     {
         if (cannonTransform == null) return;
 
+        // IMPORTANTE: Mantieni la scala originale del cannon per evitare distorsioni
+        // quando il player si scala
+        Vector3 originalScale = cannonTransform.localScale;
+
         // Calcola l'angolo dalla direzione
         float targetAngle = Mathf.Atan2(currentAimDirection.y, currentAimDirection.x) * Mathf.Rad2Deg;
 
@@ -109,14 +130,24 @@ public class PlayerShooting : MonoBehaviour
             targetRotation,
             cannonRotationSpeed * Time.deltaTime
         );
+
+        // Ripristina la scala locale se è stata modificata
+        cannonTransform.localScale = originalScale;
     }
 
     void StartCharging()
     {
-        // Controlla se � passato abbastanza tempo dall'ultimo colpo
+        // Controlla se è passato abbastanza tempo dall'ultimo colpo
         if (Time.time - lastFireTime < fireRate)
         {
             return; // Troppo presto per caricare di nuovo
+        }
+
+        // Controlla se ha munizioni
+        if (!infiniteAmmo && currentAmmo <= 0)
+        {
+            Debug.Log("Niente munizioni!");
+            return;
         }
 
         isCharging = true;
@@ -133,6 +164,9 @@ public class PlayerShooting : MonoBehaviour
         float chargeTime = Time.time - chargeStartTime;
         currentCharge = Mathf.Clamp01(chargeTime / maxChargeTime);
 
+        // Aggiorna UI della barra di carica
+        UpdateChargeUI();
+
         // Feedback visivo opzionale (puoi aggiungere effetti qui)
         // Per esempio, cambiare il colore della canna in base alla carica
     }
@@ -143,20 +177,34 @@ public class PlayerShooting : MonoBehaviour
 
         isCharging = false;
 
+        // Nascondi la barra di carica
+        if (chargeBar != null)
+        {
+            chargeBar.gameObject.SetActive(false);
+        }
+
         if (projectilePrefab == null)
         {
             Debug.LogError("Impossibile sparare: Projectile Prefab non assegnato!");
             return;
         }
 
-        // Calcola la velocit� in base alla carica
+        // Calcola la velocità in base alla carica
         float shotSpeed = Mathf.Lerp(minProjectileSpeed, maxProjectileSpeed, currentCharge);
 
         // Spara!
         Fire(shotSpeed);
+
+        // Consuma una munizione
+        if (!infiniteAmmo)
+        {
+            currentAmmo--;
+            UpdateAmmoUI();
+        }
+
         lastFireTime = Time.time;
 
-        Debug.Log($"Sparato con carica {currentCharge:F2} (velocit�: {shotSpeed:F1})");
+        Debug.Log($"Sparato con carica {currentCharge:F2} (velocità: {shotSpeed:F1}). Munizioni rimaste: {currentAmmo}");
     }
 
     void Fire(float speed)
@@ -168,7 +216,7 @@ public class PlayerShooting : MonoBehaviour
             Quaternion.identity
         );
 
-        // Imposta la velocit� del proiettile in base alla carica
+        // Imposta la velocità del proiettile in base alla carica
         Rigidbody projectileRb = projectile.GetComponent<Rigidbody>();
         if (projectileRb != null)
         {
@@ -185,6 +233,64 @@ public class PlayerShooting : MonoBehaviour
         {
             projScript.SetOwner(gameObject.tag);
         }
+    }
+
+    // Aggiorna UI delle munizioni
+    void UpdateAmmoUI()
+    {
+        if (ammoText != null)
+        {
+            if (infiniteAmmo)
+            {
+                ammoText.text = "∞";
+            }
+            else
+            {
+                ammoText.text = $"{currentAmmo} / {maxAmmo}";
+            }
+        }
+    }
+
+    // Aggiorna UI della barra di carica
+    void UpdateChargeUI()
+    {
+        if (chargeBar != null)
+        {
+            if (isCharging)
+            {
+                chargeBar.gameObject.SetActive(true);
+                chargeBar.value = currentCharge;
+            }
+            else
+            {
+                chargeBar.gameObject.SetActive(false);
+            }
+        }
+    }
+
+    // Metodi pubblici per gestire le munizioni
+    public void AddAmmo(int amount)
+    {
+        currentAmmo = Mathf.Min(currentAmmo + amount, maxAmmo);
+        UpdateAmmoUI();
+        Debug.Log($"Munizioni aggiunte! Totale: {currentAmmo}");
+    }
+
+    public void RefillAmmo()
+    {
+        currentAmmo = maxAmmo;
+        UpdateAmmoUI();
+        Debug.Log("Munizioni ricaricate!");
+    }
+
+    public int GetCurrentAmmo()
+    {
+        return currentAmmo;
+    }
+
+    public int GetMaxAmmo()
+    {
+        return maxAmmo;
     }
 
     // Metodo opzionale per visualizzare la direzione di mira e la carica nell'editor
