@@ -18,12 +18,18 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
-    public void Die()
+    public void Die(string killerTag = "")
     {
         if (isDead) return; // Già morto
 
         isDead = true;
-        Debug.Log($"{gameObject.name} è MORTO!");
+        Debug.Log($"{gameObject.name} è MORTO! Ucciso da: {killerTag}");
+
+        // Notifica lo ScoreManager
+        if (ScoreManager.Instance != null)
+        {
+            ScoreManager.Instance.OnPlayerDeath(gameObject.tag, killerTag);
+        }
 
         // Disabilita il player
         DisablePlayer();
@@ -48,6 +54,10 @@ public class PlayerHealth : MonoBehaviour
 
         PlayerShooting shooting = GetComponent<PlayerShooting>();
         if (shooting != null) shooting.enabled = false;
+
+        // IMPORTANTE: Disabilita anche il PlayerInput per bloccare TUTTI gli input
+        UnityEngine.InputSystem.PlayerInput playerInput = GetComponent<UnityEngine.InputSystem.PlayerInput>();
+        if (playerInput != null) playerInput.enabled = false;
 
         // Opzionale: Nascondi il player
         Renderer[] renderers = GetComponentsInChildren<Renderer>();
@@ -84,6 +94,10 @@ public class PlayerHealth : MonoBehaviour
 
         PlayerShooting shooting = GetComponent<PlayerShooting>();
         if (shooting != null) shooting.enabled = true;
+
+        // IMPORTANTE: Riabilita il PlayerInput
+        UnityEngine.InputSystem.PlayerInput playerInput = GetComponent<UnityEngine.InputSystem.PlayerInput>();
+        if (playerInput != null) playerInput.enabled = true;
 
         // Rimostra il player
         Renderer[] renderers = GetComponentsInChildren<Renderer>();

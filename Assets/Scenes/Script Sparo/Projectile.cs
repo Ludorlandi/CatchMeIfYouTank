@@ -4,35 +4,52 @@ public class Projectile : MonoBehaviour
 {
     [Header("Projectile Settings")]
     [SerializeField] private string ownerTag = ""; // Tag del player che ha sparato (per evitare auto-danni)
+    [SerializeField] private float minVelocity = 3f; // Velocitï¿½ minima per evitare che si fermi
 
     private bool hasHit = false;
+    private Rigidbody rb;
+
+    void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
+
+    void FixedUpdate()
+    {
+        // Mantieni una velocitï¿½ minima per evitare che il proiettile si fermi
+        if (rb != null && rb.linearVelocity.magnitude < minVelocity)
+        {
+            // Se ï¿½ troppo lento, mantieni la direzione ma aumenta la velocitï¿½
+            if (rb.linearVelocity.magnitude > 0.1f)
+            {
+                rb.linearVelocity = rb.linearVelocity.normalized * minVelocity;
+            }
+        }
+    }
 
     void OnCollisionEnter(Collision collision)
     {
-        if (hasHit) return; // Già colpito qualcosa
-
-        // Non colpire il proprio player
-        if (!string.IsNullOrEmpty(ownerTag) && collision.gameObject.CompareTag(ownerTag))
-        {
-            return;
-        }
-
-        hasHit = true;
-
-        // Colpo FATALE - uccide con 1 colpo
+        // Controlla se ha colpito un player
         PlayerHealth health = collision.gameObject.GetComponent<PlayerHealth>();
+
         if (health != null)
         {
-            health.Die();
+            // Ha colpito un PLAYER - uccidilo e distruggiti
+            if (hasHit) return; // Evita colpi multipli
+            hasHit = true;
+
+            health.Die(ownerTag); // Passa chi ha sparato per il punteggio
             Debug.Log($"Proiettile ha UCCISO: {collision.gameObject.name}");
+
+            // Distruggi il proiettile
+            Destroy(gameObject);
         }
         else
         {
-            Debug.Log($"Proiettile ha colpito: {collision.gameObject.name}");
+            // Ha colpito un MURO o altro oggetto
+            // NON distruggere - lascia che rimbalzi o si teletrasporti
+            Debug.Log($"Proiettile ha colpito: {collision.gameObject.name} (rimbalza)");
         }
-
-        // Distruggi il proiettile quando colpisce qualcosa
-        Destroy(gameObject);
     }
 
     // Imposta chi ha sparato questo proiettile
