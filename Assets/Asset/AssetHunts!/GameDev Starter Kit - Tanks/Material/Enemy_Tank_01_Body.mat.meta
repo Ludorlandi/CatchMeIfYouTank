@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 87b08b60822ce464a8d795836f1fe716
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 2100000
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 243033
+  packageName: 'GameDev Starter Kit - Tanks [Free Edition]'
+  packageVersion: v1.0.0
+  assetPath: Assets/AssetHunts!/GameDev Starter Kit - Tanks/Material/Enemy_Tank_01_Body.mat
+  uploadId: 749427
