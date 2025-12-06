@@ -21,12 +21,16 @@ public class PlayerMovement : MonoBehaviour
     private Rigidbody rb;
     private Vector2 moveInput;
     private PlayerInput playerInput;
-    private Vector3 currentVelocity = Vector3.zero; // Velocit‡ attuale del personaggio
+    private Vector3 currentVelocity = Vector3.zero; // Velocit√† attuale del personaggio
+    private Quaternion initialRotation; // Salva la rotazione iniziale
 
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
         playerInput = GetComponent<PlayerInput>();
+
+        // Salva la rotazione iniziale del player
+        initialRotation = transform.rotation;
 
         if (rb == null)
         {
@@ -41,6 +45,9 @@ public class PlayerMovement : MonoBehaviour
         // Congela la rotazione per evitare che il personaggio cada o ruoti
         if (rb != null)
         {
+            // NON usare Is Kinematic - deve essere dinamico per le collisioni
+            rb.isKinematic = false;
+            rb.useGravity = false; // Disabilita la gravit√†
             rb.constraints = RigidbodyConstraints.FreezeRotation;
 
             // Se muovi sul piano XY, congela anche la Z
@@ -52,7 +59,7 @@ public class PlayerMovement : MonoBehaviour
     }
 
     // Questo metodo viene chiamato automaticamente dal nuovo Input System
-    // Usa InputValue per compatibilit‡ con Send Messages
+    // Usa InputValue per compatibilit√† con Send Messages
     public void OnMove(InputValue value)
     {
         moveInput = value.Get<Vector2>();
@@ -74,11 +81,11 @@ public class PlayerMovement : MonoBehaviour
             targetDirection = new Vector3(moveInput.x, 0f, moveInput.y);
         }
 
-        // Calcola la velocit‡ target in base all'input della levetta
+        // Calcola la velocit√† target in base all'input della levetta
         // La magnitudine dell'input (0-1) determina quanto veloce vuoi andare
         Vector3 targetVelocity = targetDirection * maxSpeed;
 
-        // Accelera o decelera gradualmente verso la velocit‡ target
+        // Accelera o decelera gradualmente verso la velocit√† target
         if (targetDirection.magnitude > 0.01f)
         {
             // Sta accelerando - muove la levetta
@@ -98,25 +105,30 @@ public class PlayerMovement : MonoBehaviour
             );
         }
 
-        // Calcola la nuova posizione
-        Vector3 newPosition = rb.position + currentVelocity * Time.fixedDeltaTime;
+        // USA VELOCITY invece di MovePosition per collisioni corrette
+        rb.linearVelocity = currentVelocity;
+
+        // Blocca solo la velocit√† angolare (il Rigidbody stesso non deve ruotare)
+        // Ma i figli (Cannon) possono ruotare liberamente
+        rb.angularVelocity = Vector3.zero;
 
         // Opzionale: limita il movimento entro certi confini
         if (constrainToScreen)
         {
-            newPosition.x = Mathf.Clamp(newPosition.x, minX, maxX);
+            Vector3 pos = rb.position;
+            pos.x = Mathf.Clamp(pos.x, minX, maxX);
 
             if (moveOnXYPlane)
             {
-                newPosition.y = Mathf.Clamp(newPosition.y, minY, maxY);
+                pos.y = Mathf.Clamp(pos.y, minY, maxY);
             }
             else
             {
-                newPosition.z = Mathf.Clamp(newPosition.z, minY, maxY);
+                pos.z = Mathf.Clamp(pos.z, minY, maxY);
             }
-        }
 
-        rb.MovePosition(newPosition);
+            rb.position = pos;
+        }
     }
 
     // Metodo opzionale per visualizzare i confini nell'editor
