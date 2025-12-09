@@ -170,7 +170,7 @@ MonoBehaviour:
   gamepadIndex: 1
   maxSpeed: 10
   acceleration: 25
-  deceleration: 25
+  deceleration: 35
   moveOnXYPlane: 1
   constrainToScreen: 1
   minX: -15
