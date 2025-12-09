@@ -11,6 +11,8 @@ public class PlayerMovementDirect : MonoBehaviour
     [SerializeField] private float acceleration = 50f;
     [SerializeField] private float deceleration = 50f;
     [SerializeField] private bool moveOnXYPlane = true;
+    [SerializeField] private float chargingSpeedMultiplier = 0.5f; // Velocità ridotta durante carica (50%)
+    [SerializeField] private float speedTransitionSpeed = 5f; // Velocità della transizione
 
     [Header("Movement Constraints")]
     [SerializeField] private bool constrainToScreen = true;
@@ -22,10 +24,13 @@ public class PlayerMovementDirect : MonoBehaviour
     private Rigidbody rb;
     private Vector3 currentVelocity = Vector3.zero;
     private Quaternion initialRotation;
+    private PlayerShootingDirect shootingScript;
+    private float currentSpeedMultiplier = 1f; // Inizia a velocità normale
 
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        shootingScript = GetComponent<PlayerShootingDirect>();
 
         // Salva la rotazione iniziale (es: Cannon X=-90)
         initialRotation = transform.rotation;
@@ -63,8 +68,26 @@ public class PlayerMovementDirect : MonoBehaviour
             targetDirection = new Vector3(moveInput.x, 0f, moveInput.y);
         }
 
-        // Calcola la velocit� target
+        // Calcola la velocità target
         Vector3 targetVelocity = targetDirection * maxSpeed;
+
+        // Transizione GRADUALE della velocità quando carica
+        float targetMultiplier = 1f; // Default: velocità normale
+
+        if (shootingScript != null && shootingScript.IsCharging)
+        {
+            targetMultiplier = chargingSpeedMultiplier; // Rallenta
+        }
+
+        // Interpolazione smooth verso il multiplier target
+        currentSpeedMultiplier = Mathf.Lerp(
+            currentSpeedMultiplier,
+            targetMultiplier,
+            speedTransitionSpeed * Time.fixedDeltaTime
+        );
+
+        // Applica il multiplier corrente
+        targetVelocity *= currentSpeedMultiplier;
 
         // Accelera o decelera
         if (targetDirection.magnitude > 0.01f)
@@ -84,7 +107,7 @@ public class PlayerMovementDirect : MonoBehaviour
             );
         }
 
-        // Applica velocit�
+        // Applica velocità
         rb.linearVelocity = currentVelocity;
         rb.angularVelocity = Vector3.zero;
 

@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using System.Collections;
@@ -36,6 +36,9 @@ public class PlayerShootingDirect : MonoBehaviour
     private float chargeStartTime;
     private float lastShootTime;
     private Vector2 currentAimDirection = Vector2.right;
+
+    // Proprietà pubblica per sapere se sta caricando
+    public bool IsCharging => isCharging;
 
     void Start()
     {
@@ -172,7 +175,7 @@ public class PlayerShootingDirect : MonoBehaviour
         {
             if (infiniteAmmo)
             {
-                ammoText.text = "?";
+                ammoText.text = "∞";
             }
             else
             {

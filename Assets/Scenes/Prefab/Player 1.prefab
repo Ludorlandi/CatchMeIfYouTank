@@ -203,6 +203,8 @@ MonoBehaviour:
   acceleration: 25
   deceleration: 35
   moveOnXYPlane: 1
+  chargingSpeedMultiplier: 0.2
+  speedTransitionSpeed: 5
   constrainToScreen: 1
   minX: -15
   maxX: 15
