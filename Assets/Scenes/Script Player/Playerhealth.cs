@@ -48,16 +48,19 @@ public class PlayerHealth : MonoBehaviour
 
     void DisablePlayer()
     {
-        // Disabilita i componenti di controllo
+        // Disabilita i componenti di controllo (vecchi)
         PlayerMovement movement = GetComponent<PlayerMovement>();
         if (movement != null) movement.enabled = false;
 
         PlayerShooting shooting = GetComponent<PlayerShooting>();
         if (shooting != null) shooting.enabled = false;
 
-        // IMPORTANTE: Disabilita anche il PlayerInput per bloccare TUTTI gli input
-        UnityEngine.InputSystem.PlayerInput playerInput = GetComponent<UnityEngine.InputSystem.PlayerInput>();
-        if (playerInput != null) playerInput.enabled = false;
+        // Disabilita i componenti di controllo (NUOVI - Direct)
+        PlayerMovementDirect movementDirect = GetComponent<PlayerMovementDirect>();
+        if (movementDirect != null) movementDirect.enabled = false;
+
+        PlayerShootingDirect shootingDirect = GetComponent<PlayerShootingDirect>();
+        if (shootingDirect != null) shootingDirect.enabled = false;
 
         // Opzionale: Nascondi il player
         Renderer[] renderers = GetComponentsInChildren<Renderer>();
@@ -88,16 +91,19 @@ public class PlayerHealth : MonoBehaviour
 
     void EnablePlayer()
     {
-        // Riabilita i componenti di controllo
+        // Riabilita i componenti di controllo (vecchi)
         PlayerMovement movement = GetComponent<PlayerMovement>();
         if (movement != null) movement.enabled = true;
 
         PlayerShooting shooting = GetComponent<PlayerShooting>();
         if (shooting != null) shooting.enabled = true;
 
-        // IMPORTANTE: Riabilita il PlayerInput
-        UnityEngine.InputSystem.PlayerInput playerInput = GetComponent<UnityEngine.InputSystem.PlayerInput>();
-        if (playerInput != null) playerInput.enabled = true;
+        // Riabilita i componenti di controllo (NUOVI - Direct)
+        PlayerMovementDirect movementDirect = GetComponent<PlayerMovementDirect>();
+        if (movementDirect != null) movementDirect.enabled = true;
+
+        PlayerShootingDirect shootingDirect = GetComponent<PlayerShootingDirect>();
+        if (shootingDirect != null) shootingDirect.enabled = true;
 
         // Rimostra il player
         Renderer[] renderers = GetComponentsInChildren<Renderer>();
