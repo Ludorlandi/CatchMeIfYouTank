@@ -31,6 +31,9 @@ public class PlayerShootingDirect : MonoBehaviour
     [SerializeField] private Text ammoText;
     [SerializeField] private Slider chargeBar;
 
+    [Header("Audio (Opzionale)")]
+    [SerializeField] private string shootSoundName = ""; // Nome del suono nello SoundManager
+
     private int currentAmmo;
     private bool isCharging = false;
     private float chargeStartTime;
@@ -151,6 +154,12 @@ public class PlayerShootingDirect : MonoBehaviour
             if (projScript != null)
             {
                 projScript.SetOwner(gameObject.tag);
+            }
+
+            // Suona l'audio se specificato
+            if (!string.IsNullOrEmpty(shootSoundName) && SoundManager.Instance != null)
+            {
+                SoundManager.Instance.PlayWithRandomPitch(shootSoundName, 0.95f, 1.05f);
             }
         }
 

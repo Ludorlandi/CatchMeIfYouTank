@@ -7,6 +7,10 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private float respawnDelay = 2f;
     [SerializeField] private Vector3 respawnPosition;
 
+    [Header("Audio (Opzionale)")]
+    [SerializeField] private string deathSoundName = ""; // Suono quando muore
+    [SerializeField] private string respawnSoundName = ""; // Suono quando respawna
+
     private bool isDead = false;
 
     void Start()
@@ -24,6 +28,12 @@ public class PlayerHealth : MonoBehaviour
 
         isDead = true;
         Debug.Log($"{gameObject.name} è MORTO! Ucciso da: {killerTag}");
+
+        // Suona il suono della morte se specificato
+        if (!string.IsNullOrEmpty(deathSoundName) && SoundManager.Instance != null)
+        {
+            SoundManager.Instance.Play(deathSoundName);
+        }
 
         // Notifica lo ScoreManager
         if (ScoreManager.Instance != null)
@@ -87,6 +97,12 @@ public class PlayerHealth : MonoBehaviour
 
         // Riabilita il player
         EnablePlayer();
+
+        // Suona il suono del respawn se specificato
+        if (!string.IsNullOrEmpty(respawnSoundName) && SoundManager.Instance != null)
+        {
+            SoundManager.Instance.Play(respawnSoundName);
+        }
     }
 
     void EnablePlayer()

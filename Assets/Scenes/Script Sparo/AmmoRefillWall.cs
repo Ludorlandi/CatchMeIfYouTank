@@ -6,6 +6,9 @@ public class AmmoRefillWall : MonoBehaviour
     [SerializeField] private int playerNumber = 1; // 1 o 2 - quale player riceve le munizioni
     [SerializeField] private int ammoToGive = 1; // Quante munizioni dare
 
+    [Header("Audio (Opzionale)")]
+    [SerializeField] private string pickupSoundName = ""; // Suono quando ricarica munizioni
+
     [Header("Visual Feedback (Optional)")]
     [SerializeField] private Color flashColor = Color.green;
     [SerializeField] private float flashDuration = 0.2f;
@@ -48,6 +51,12 @@ public class AmmoRefillWall : MonoBehaviour
                     // Aggiungi munizioni
                     shooting.AddAmmo(ammoToGive);
                     Debug.Log($"Muro ha dato {ammoToGive} munizione/i al Player {playerNumber}");
+
+                    // Suona il suono del pickup se specificato
+                    if (!string.IsNullOrEmpty(pickupSoundName) && SoundManager.Instance != null)
+                    {
+                        SoundManager.Instance.Play(pickupSoundName);
+                    }
 
                     // Feedback visivo
                     FlashWall();

@@ -11,8 +11,11 @@ public class PortalWall : MonoBehaviour
     [SerializeField] private float flashDuration = 0.1f;
 
     [Header("Projectile Adjustment")]
-    [SerializeField] private bool maintainVelocity = true; // Mantiene la velocit�
+    [SerializeField] private bool maintainVelocity = true; // Mantiene la velocità
     [SerializeField] private bool flipDirection = false; // Inverte la direzione (opzionale)
+
+    [Header("Audio (Opzionale)")]
+    [SerializeField] private string teleportSoundName = ""; // Suono quando teletrasporta
 
     private Renderer wallRenderer;
     private Color originalColor;
@@ -31,7 +34,7 @@ public class PortalWall : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        // Controlla se � un proiettile
+        // Controlla se è un proiettile
         Projectile projectile = collision.gameObject.GetComponent<Projectile>();
 
         if (projectile != null && !isTeleporting)
@@ -56,14 +59,14 @@ public class PortalWall : MonoBehaviour
 
         if (rb != null)
         {
-            // Salva la velocit� attuale
+            // Salva la velocità attuale
             Vector3 currentVelocity = rb.linearVelocity;
 
             // Calcola la nuova posizione
             // Posiziona il proiettile davanti al portale di uscita
             Vector3 exitDirection = linkedPortal.transform.forward;
 
-            // Se flipDirection � attivo, inverti la direzione
+            // Se flipDirection è attivo, inverti la direzione
             if (flipDirection)
             {
                 exitDirection = -exitDirection;
@@ -74,16 +77,22 @@ public class PortalWall : MonoBehaviour
             // Teletrasporta il proiettile
             projectile.transform.position = newPosition;
 
-            // Regola la velocit�
+            // Suona il suono del teletrasporto se specificato
+            if (!string.IsNullOrEmpty(teleportSoundName) && SoundManager.Instance != null)
+            {
+                SoundManager.Instance.Play(teleportSoundName);
+            }
+
+            // Regola la velocità
             if (maintainVelocity)
             {
-                // Mantiene la velocit� ma nella direzione del portale di uscita
+                // Mantiene la velocità ma nella direzione del portale di uscita
                 float speed = currentVelocity.magnitude;
                 rb.linearVelocity = exitDirection * speed;
             }
             else
             {
-                // Mantiene la velocit� originale (direzione e tutto)
+                // Mantiene la velocità originale (direzione e tutto)
                 rb.linearVelocity = currentVelocity;
             }
 

@@ -20,6 +20,9 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private Text winnerText; // Testo "Player X Wins!"
     [SerializeField] private Text restartText; // Testo "Premi R per ricominciare"
 
+    [Header("Audio (Opzionale)")]
+    [SerializeField] private string victorySoundName = ""; // Suono quando qualcuno vince
+
     private List<GameObject> player1LifeIcons = new List<GameObject>();
     private List<GameObject> player2LifeIcons = new List<GameObject>();
 
@@ -135,6 +138,12 @@ public class ScoreManager : MonoBehaviour
     {
         gameEnded = true;
         Debug.Log($"{winner} WINS!");
+
+        // Suona il suono della vittoria se specificato
+        if (!string.IsNullOrEmpty(victorySoundName) && SoundManager.Instance != null)
+        {
+            SoundManager.Instance.Play(victorySoundName);
+        }
 
         // Mostra pannello vittoria
         if (winPanel != null)
