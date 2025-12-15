@@ -43,12 +43,28 @@ public class AmmoRefillWall : MonoBehaviour
 
             if (player != null)
             {
-                // Trova il componente PlayerShooting
+                // Trova il componente PlayerShooting (vecchio) o PlayerShootingDirect (nuovo)
                 PlayerShooting shooting = player.GetComponent<PlayerShooting>();
+                PlayerShootingDirect shootingDirect = player.GetComponent<PlayerShootingDirect>();
 
-                if (shooting != null)
+                if (shootingDirect != null)
                 {
-                    // Aggiungi munizioni
+                    // Usa il nuovo script
+                    shootingDirect.AddAmmo(ammoToGive);
+                    Debug.Log($"Muro ha dato {ammoToGive} munizione/i al Player {playerNumber}");
+
+                    // Suona il suono del pickup se specificato
+                    if (!string.IsNullOrEmpty(pickupSoundName) && SoundManager.Instance != null)
+                    {
+                        SoundManager.Instance.Play(pickupSoundName);
+                    }
+
+                    // Feedback visivo
+                    FlashWall();
+                }
+                else if (shooting != null)
+                {
+                    // Usa il vecchio script (per retrocompatibilità)
                     shooting.AddAmmo(ammoToGive);
                     Debug.Log($"Muro ha dato {ammoToGive} munizione/i al Player {playerNumber}");
 
@@ -63,7 +79,7 @@ public class AmmoRefillWall : MonoBehaviour
                 }
                 else
                 {
-                    Debug.LogWarning($"PlayerShooting non trovato su Player {playerNumber}");
+                    Debug.LogWarning($"PlayerShooting o PlayerShootingDirect non trovato su Player {playerNumber}");
                 }
             }
             else
