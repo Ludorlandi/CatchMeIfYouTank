@@ -56,6 +56,40 @@ public class PlayerHealth : MonoBehaviour
         }
     }
 
+    // Nuovo metodo per gestire danno variabile
+    public void TakeDamage(int damage, string killerTag = "")
+    {
+        if (isDead) return;
+
+        Debug.Log($"{gameObject.name} ha preso {damage} danno da {killerTag}");
+
+        // Notifica lo ScoreManager per OGNI vita persa
+        if (ScoreManager.Instance != null)
+        {
+            for (int i = 0; i < damage; i++)
+            {
+                ScoreManager.Instance.OnPlayerDeath(gameObject.tag, killerTag);
+            }
+        }
+
+        // Suona il suono della morte se specificato
+        if (!string.IsNullOrEmpty(deathSoundName) && SoundManager.Instance != null)
+        {
+            SoundManager.Instance.Play(deathSoundName);
+        }
+
+        isDead = true;
+
+        // Disabilita il player
+        DisablePlayer();
+
+        // Respawn dopo un delay
+        if (respawnOnDeath)
+        {
+            Invoke(nameof(Respawn), respawnDelay);
+        }
+    }
+
     void DisablePlayer()
     {
         // Disabilita i componenti di controllo (vecchi)

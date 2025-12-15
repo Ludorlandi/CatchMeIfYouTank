@@ -4,7 +4,8 @@ public class Projectile : MonoBehaviour
 {
     [Header("Projectile Settings")]
     [SerializeField] private string ownerTag = ""; // Tag del player che ha sparato (per evitare auto-danni)
-    [SerializeField] private float minVelocity = 3f; // Velocit� minima per evitare che si fermi
+    [SerializeField] private float minVelocity = 3f; // Velocità minima per evitare che si fermi
+    [SerializeField] private int damage = 1; // Danno del proiettile (default 1 vita)
 
     private bool hasHit = false;
     private Rigidbody rb;
@@ -16,10 +17,10 @@ public class Projectile : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Mantieni una velocit� minima per evitare che il proiettile si fermi
+        // Mantieni una velocità minima per evitare che il proiettile si fermi
         if (rb != null && rb.linearVelocity.magnitude < minVelocity)
         {
-            // Se � troppo lento, mantieni la direzione ma aumenta la velocit�
+            // Se è troppo lento, mantieni la direzione ma aumenta la velocità
             if (rb.linearVelocity.magnitude > 0.1f)
             {
                 rb.linearVelocity = rb.linearVelocity.normalized * minVelocity;
@@ -34,12 +35,12 @@ public class Projectile : MonoBehaviour
 
         if (health != null)
         {
-            // Ha colpito un PLAYER - uccidilo e distruggiti
+            // Ha colpito un PLAYER - infliggi danno e distruggiti
             if (hasHit) return; // Evita colpi multipli
             hasHit = true;
 
-            health.Die(ownerTag); // Passa chi ha sparato per il punteggio
-            Debug.Log($"Proiettile ha UCCISO: {collision.gameObject.name}");
+            health.TakeDamage(damage, ownerTag); // Infliggi danno
+            Debug.Log($"Proiettile ha colpito {collision.gameObject.name} per {damage} danno!");
 
             // Distruggi il proiettile
             Destroy(gameObject);
@@ -56,5 +57,11 @@ public class Projectile : MonoBehaviour
     public void SetOwner(string tag)
     {
         ownerTag = tag;
+    }
+
+    // Imposta il danno di questo proiettile
+    public void SetDamage(int damageAmount)
+    {
+        damage = damageAmount;
     }
 }
