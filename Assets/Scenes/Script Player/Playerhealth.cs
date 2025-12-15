@@ -7,6 +7,9 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private float respawnDelay = 2f;
     [SerializeField] private Vector3 respawnPosition;
 
+    [Header("Ammo Settings")]
+    [SerializeField] private int ammoOnHit = 1; // Munizioni che ricevi quando vieni colpito
+
     [Header("Audio (Opzionale)")]
     [SerializeField] private string deathSoundName = ""; // Suono quando muore
     [SerializeField] private string respawnSoundName = ""; // Suono quando respawna
@@ -62,6 +65,17 @@ public class PlayerHealth : MonoBehaviour
         if (isDead) return;
 
         Debug.Log($"{gameObject.name} ha preso {damage} danno da {killerTag}");
+
+        // Ricarica munizioni quando vieni colpito
+        if (ammoOnHit > 0)
+        {
+            PlayerShootingDirect shooting = GetComponent<PlayerShootingDirect>();
+            if (shooting != null)
+            {
+                shooting.AddAmmo(ammoOnHit);
+                Debug.Log($"{gameObject.name} ha ricevuto {ammoOnHit} munizione/i dopo essere stato colpito!");
+            }
+        }
 
         // Notifica lo ScoreManager per OGNI vita persa
         if (ScoreManager.Instance != null)
