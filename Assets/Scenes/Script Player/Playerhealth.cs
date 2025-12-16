@@ -1,0 +1,192 @@
+using UnityEngine;
+
+public class PlayerHealth : MonoBehaviour
+{
+    [Header("Death Settings")]
+    [SerializeField] private bool respawnOnDeath = true;
+    [SerializeField] private float respawnDelay = 2f;
+    [SerializeField] private Vector3 respawnPosition;
+
+    [Header("Ammo Settings")]
+    [SerializeField] private int ammoOnHit = 1; // Munizioni che ricevi quando vieni colpito
+
+    [Header("Audio (Opzionale)")]
+    [SerializeField] private string deathSoundName = ""; // Suono quando muore
+    [SerializeField] private string respawnSoundName = ""; // Suono quando respawna
+
+    private bool isDead = false;
+
+    void Start()
+    {
+        // Salva la posizione iniziale come respawn point
+        if (respawnPosition == Vector3.zero)
+        {
+            respawnPosition = transform.position;
+        }
+    }
+
+    public void Die(string killerTag = "")
+    {
+        if (isDead) return; // Già morto
+
+        isDead = true;
+        Debug.Log($"{gameObject.name} è MORTO! Ucciso da: {killerTag}");
+
+        // Suona il suono della morte se specificato
+        if (!string.IsNullOrEmpty(deathSoundName) && SoundManager.Instance != null)
+        {
+            SoundManager.Instance.Play(deathSoundName);
+        }
+
+        // Notifica lo ScoreManager
+        if (ScoreManager.Instance != null)
+        {
+            ScoreManager.Instance.OnPlayerDeath(gameObject.tag, killerTag);
+        }
+
+        // Disabilita il player
+        DisablePlayer();
+
+        // Respawn dopo un delay
+        if (respawnOnDeath)
+        {
+            Invoke(nameof(Respawn), respawnDelay);
+        }
+        else
+        {
+            // Se non respawna, distruggi il GameObject o gestisci il game over
+            Debug.Log($"{gameObject.name} NON respawnerà");
+        }
+    }
+
+    // Nuovo metodo per gestire danno variabile
+    public void TakeDamage(int damage, string killerTag = "")
+    {
+        if (isDead) return;
+
+        Debug.Log($"{gameObject.name} ha preso {damage} danno da {killerTag}");
+
+        // Ricarica munizioni quando vieni colpito
+        if (ammoOnHit > 0)
+        {
+            PlayerShootingDirect shooting = GetComponent<PlayerShootingDirect>();
+            if (shooting != null)
+            {
+                shooting.AddAmmo(ammoOnHit);
+                Debug.Log($"{gameObject.name} ha ricevuto {ammoOnHit} munizione/i dopo essere stato colpito!");
+            }
+        }
+
+        // Notifica lo ScoreManager per OGNI vita persa
+        if (ScoreManager.Instance != null)
+        {
+            for (int i = 0; i < damage; i++)
+            {
+                ScoreManager.Instance.OnPlayerDeath(gameObject.tag, killerTag);
+            }
+        }
+
+        // Suona il suono della morte se specificato
+        if (!string.IsNullOrEmpty(deathSoundName) && SoundManager.Instance != null)
+        {
+            SoundManager.Instance.Play(deathSoundName);
+        }
+
+        isDead = true;
+
+        // Disabilita il player
+        DisablePlayer();
+
+        // Respawn dopo un delay
+        if (respawnOnDeath)
+        {
+            Invoke(nameof(Respawn), respawnDelay);
+        }
+    }
+
+    void DisablePlayer()
+    {
+        // Disabilita i componenti di controllo (vecchi)
+        PlayerMovement movement = GetComponent<PlayerMovement>();
+        if (movement != null) movement.enabled = false;
+
+        PlayerShooting shooting = GetComponent<PlayerShooting>();
+        if (shooting != null) shooting.enabled = false;
+
+        // Disabilita i componenti di controllo (NUOVI - Direct)
+        PlayerMovementDirect movementDirect = GetComponent<PlayerMovementDirect>();
+        if (movementDirect != null) movementDirect.enabled = false;
+
+        PlayerShootingDirect shootingDirect = GetComponent<PlayerShootingDirect>();
+        if (shootingDirect != null) shootingDirect.enabled = false;
+
+        // Opzionale: Nascondi il player
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+        foreach (Renderer rend in renderers)
+        {
+            rend.enabled = false;
+        }
+
+        // Opzionale: Disabilita le collisioni
+        Collider[] colliders = GetComponentsInChildren<Collider>();
+        foreach (Collider col in colliders)
+        {
+            col.enabled = false;
+        }
+    }
+
+    void Respawn()
+    {
+        isDead = false;
+        Debug.Log($"{gameObject.name} è RESPAWNATO!");
+
+        // Teletrasporta alla posizione di respawn
+        transform.position = respawnPosition;
+
+        // Riabilita il player
+        EnablePlayer();
+
+        // Suona il suono del respawn se specificato
+        if (!string.IsNullOrEmpty(respawnSoundName) && SoundManager.Instance != null)
+        {
+            SoundManager.Instance.Play(respawnSoundName);
+        }
+    }
+
+    void EnablePlayer()
+    {
+        // Riabilita i componenti di controllo (vecchi)
+        PlayerMovement movement = GetComponent<PlayerMovement>();
+        if (movement != null) movement.enabled = true;
+
+        PlayerShooting shooting = GetComponent<PlayerShooting>();
+        if (shooting != null) shooting.enabled = true;
+
+        // Riabilita i componenti di controllo (NUOVI - Direct)
+        PlayerMovementDirect movementDirect = GetComponent<PlayerMovementDirect>();
+        if (movementDirect != null) movementDirect.enabled = true;
+
+        PlayerShootingDirect shootingDirect = GetComponent<PlayerShootingDirect>();
+        if (shootingDirect != null) shootingDirect.enabled = true;
+
+        // Rimostra il player
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+        foreach (Renderer rend in renderers)
+        {
+            rend.enabled = true;
+        }
+
+        // Riabilita le collisioni
+        Collider[] colliders = GetComponentsInChildren<Collider>();
+        foreach (Collider col in colliders)
+        {
+            col.enabled = true;
+        }
+    }
+
+    // Metodo pubblico per impostare la posizione di respawn
+    public void SetRespawnPosition(Vector3 position)
+    {
+        respawnPosition = position;
+    }
+}
