@@ -121,7 +121,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9298bbff5d5847e4cbb23116d3d357b6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  linkedPortal: {fileID: 0}
+  linkedPortal: {fileID: 3512093677969078764, guid: 532ec0aee7d211343a7ad73701715e70, type: 3}
   teleportOffset: 1
   portalColor: {r: 0.11489493, g: 0.6150943, b: 0.6150943, a: 1}
   flashDuration: 0.1

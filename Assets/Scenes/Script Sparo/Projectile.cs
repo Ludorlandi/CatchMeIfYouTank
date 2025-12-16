@@ -1,4 +1,5 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class Projectile : MonoBehaviour
 {
@@ -6,6 +7,9 @@ public class Projectile : MonoBehaviour
     [SerializeField] private string ownerTag = ""; // Tag del player che ha sparato (per evitare auto-danni)
     [SerializeField] private float minVelocity = 3f; // Velocità minima per evitare che si fermi
     [SerializeField] private int damage = 1; // Danno del proiettile (default 1 vita)
+
+    [Header("Audio (Opzionale)")]
+    [SerializeField] private string[] bounceSoundNames = new string[10]; // Array di 10 suoni rimbalzo
 
     private bool hasHit = false;
     private Rigidbody rb;
@@ -49,7 +53,36 @@ public class Projectile : MonoBehaviour
         {
             // Ha colpito un MURO o altro oggetto
             // NON distruggere - lascia che rimbalzi o si teletrasporti
+
+            // Suona un suono di rimbalzo casuale
+            PlayRandomBounceSound();
+
             Debug.Log($"Proiettile ha colpito: {collision.gameObject.name} (rimbalza)");
+        }
+    }
+
+    void PlayRandomBounceSound()
+    {
+        if (SoundManager.Instance == null) return;
+
+        // Filtra solo i nomi non vuoti
+        List<string> validSounds = new List<string>();
+        foreach (string soundName in bounceSoundNames)
+        {
+            if (!string.IsNullOrEmpty(soundName))
+            {
+                validSounds.Add(soundName);
+            }
+        }
+
+        // Se ci sono suoni validi, scegline uno casuale
+        if (validSounds.Count > 0)
+        {
+            int randomIndex = Random.Range(0, validSounds.Count);
+            string randomSound = validSounds[randomIndex];
+
+            // Suona alla posizione del proiettile
+            SoundManager.Instance.PlayAtPosition(randomSound, transform.position);
         }
     }
 

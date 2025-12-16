@@ -127,4 +127,4 @@ MonoBehaviour:
   wallColor: {r: 0.4415095, g: 0.062498577, b: 0.052481294, a: 1}
   flashColor: {r: 0.7735849, g: 0.42474183, b: 0.42474183, a: 1}
   flashDuration: 0.1
-  powerUpSoundName: 
+  powerUpSoundName: potenziamento

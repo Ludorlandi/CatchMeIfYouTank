@@ -1188,9 +1188,9 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: movimento
-    clip: {fileID: 8300000, guid: 2747a6b2e6e505540af4eef171fa24e7, type: 3}
-    volume: 0.7
-    pitch: 0.7
+    clip: {fileID: 8300000, guid: 7ddeee49e720f2f4f84bf4f0870a54b9, type: 3}
+    volume: 0.4
+    pitch: 1.04
     loop: 1
     source: {fileID: 0}
   - name: carica proiettile
@@ -1201,12 +1201,78 @@ MonoBehaviour:
     source: {fileID: 0}
   - name: ost
     clip: {fileID: 8300000, guid: 8332cf1080894344a8a5bea7720e5029, type: 3}
-    volume: 0.4
+    volume: 0.35
     pitch: 1
     loop: 1
     source: {fileID: 0}
   - name: carica max
     clip: {fileID: 8300000, guid: ce8ff41aa5b04e84eb2aff134ed04bff, type: 3}
+    volume: 1
+    pitch: 1.5
+    loop: 0
+    source: {fileID: 0}
+  - name: potenziamento
+    clip: {fileID: 8300000, guid: b374a057bfd2fcf468ef61a3091695b8, type: 3}
+    volume: 1
+    pitch: 1.5
+    loop: 0
+    source: {fileID: 0}
+  - name: 1
+    clip: {fileID: 8300000, guid: 6cd323ac23d94814a870f048caa42b52, type: 3}
+    volume: 1
+    pitch: 1.5
+    loop: 0
+    source: {fileID: 0}
+  - name: 2
+    clip: {fileID: 8300000, guid: 4be0d7ae847c2644da1a2646c233e1cb, type: 3}
+    volume: 1
+    pitch: 1.5
+    loop: 0
+    source: {fileID: 0}
+  - name: 3
+    clip: {fileID: 8300000, guid: 11e5550f0361c1547912dc4becfb703b, type: 3}
+    volume: 1
+    pitch: 1.5
+    loop: 0
+    source: {fileID: 0}
+  - name: 4
+    clip: {fileID: 8300000, guid: df52cf35d3debff4dbd0f32cd1887f9f, type: 3}
+    volume: 1
+    pitch: 1.5
+    loop: 0
+    source: {fileID: 0}
+  - name: 5
+    clip: {fileID: 8300000, guid: eaafd3d52d5963f48a79c8d7c91cc52d, type: 3}
+    volume: 1
+    pitch: 1.5
+    loop: 0
+    source: {fileID: 0}
+  - name: 6
+    clip: {fileID: 8300000, guid: bf4252eb0891c2f439629ce2381eb5a6, type: 3}
+    volume: 1
+    pitch: 1.5
+    loop: 0
+    source: {fileID: 0}
+  - name: 7
+    clip: {fileID: 8300000, guid: 3603068fc6705f04eb9b7b5497662396, type: 3}
+    volume: 1
+    pitch: 1.5
+    loop: 0
+    source: {fileID: 0}
+  - name: 8
+    clip: {fileID: 8300000, guid: 5bb9183345d823641bf438072941e4d0, type: 3}
+    volume: 1
+    pitch: 1.5
+    loop: 0
+    source: {fileID: 0}
+  - name: 9
+    clip: {fileID: 8300000, guid: 3e0d7b928c9c7014da8c704fd5380150, type: 3}
+    volume: 1
+    pitch: 1.5
+    loop: 0
+    source: {fileID: 0}
+  - name: 10
+    clip: {fileID: 8300000, guid: b8e16f57d491a424b91155a52f6a0d13, type: 3}
     volume: 1
     pitch: 1.5
     loop: 0
@@ -2941,7 +3007,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5370008980773233997, guid: e9258de05af860848bdb467412829b1d, type: 3}
       propertyPath: movementLoopSoundName
-      value: 
+      value: movimento
       objectReference: {fileID: 0}
     - target: {fileID: 5370008980773233997, guid: e9258de05af860848bdb467412829b1d, type: 3}
       propertyPath: accelerationStartSoundName
@@ -3054,7 +3120,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9119311814150077359, guid: 4cfb57388c70ca64c82b696f6c818be3, type: 3}
       propertyPath: movementLoopSoundName
-      value: 
+      value: movimento
       objectReference: {fileID: 0}
     - target: {fileID: 9119311814150077359, guid: 4cfb57388c70ca64c82b696f6c818be3, type: 3}
       propertyPath: accelerationStartSoundName
