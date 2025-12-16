@@ -33,12 +33,15 @@ public class PlayerShootingDirect : MonoBehaviour
 
     [Header("Audio (Opzionale)")]
     [SerializeField] private string shootSoundName = ""; // Nome del suono nello SoundManager
+    [SerializeField] private string chargingSoundName = ""; // Suono loop mentre carica
+    [SerializeField] private string chargeCompleteSoundName = ""; // Suono quando carica è completa
 
     private int currentAmmo;
     private bool isCharging = false;
     private float chargeStartTime;
     private float lastShootTime;
     private Vector2 currentAimDirection = Vector2.right;
+    private bool hasPlayedChargeComplete = false; // Flag per suonare charge complete una volta sola
 
     // Proprietà pubblica per sapere se sta caricando
     public bool IsCharging => isCharging;
@@ -118,6 +121,13 @@ public class PlayerShootingDirect : MonoBehaviour
 
         isCharging = true;
         chargeStartTime = Time.time;
+        hasPlayedChargeComplete = false;
+
+        // Suona il suono di carica (loop)
+        if (!string.IsNullOrEmpty(chargingSoundName) && SoundManager.Instance != null)
+        {
+            SoundManager.Instance.Play(chargingSoundName);
+        }
 
         if (chargeBar != null)
         {
@@ -131,6 +141,13 @@ public class PlayerShootingDirect : MonoBehaviour
         if (!infiniteAmmo && currentAmmo <= 0)
         {
             isCharging = false;
+
+            // Ferma il suono di carica se stava suonando
+            if (!string.IsNullOrEmpty(chargingSoundName) && SoundManager.Instance != null)
+            {
+                SoundManager.Instance.Stop(chargingSoundName);
+            }
+
             if (chargeBar != null) chargeBar.gameObject.SetActive(false);
             return;
         }
@@ -156,11 +173,17 @@ public class PlayerShootingDirect : MonoBehaviour
                 projScript.SetOwner(gameObject.tag);
             }
 
-            // Suona l'audio se specificato
+            // Suona l'audio dello sparo se specificato
             if (!string.IsNullOrEmpty(shootSoundName) && SoundManager.Instance != null)
             {
                 SoundManager.Instance.PlayWithRandomPitch(shootSoundName, 0.95f, 1.05f);
             }
+        }
+
+        // Ferma il suono di carica
+        if (!string.IsNullOrEmpty(chargingSoundName) && SoundManager.Instance != null)
+        {
+            SoundManager.Instance.Stop(chargingSoundName);
         }
 
         if (!infiniteAmmo)
@@ -200,6 +223,24 @@ public class PlayerShootingDirect : MonoBehaviour
             float chargeTime = Time.time - chargeStartTime;
             float chargePercent = Mathf.Min(chargeTime / maxChargeTime, 1f);
             chargeBar.value = chargePercent;
+
+            // Suona il suono di carica completa quando raggiungi il 100%
+            if (chargePercent >= 1f && !hasPlayedChargeComplete)
+            {
+                hasPlayedChargeComplete = true;
+
+                // Ferma il suono di carica loop
+                if (!string.IsNullOrEmpty(chargingSoundName) && SoundManager.Instance != null)
+                {
+                    SoundManager.Instance.Stop(chargingSoundName);
+                }
+
+                // Suona il suono di carica completa
+                if (!string.IsNullOrEmpty(chargeCompleteSoundName) && SoundManager.Instance != null)
+                {
+                    SoundManager.Instance.Play(chargeCompleteSoundName);
+                }
+            }
         }
     }
 

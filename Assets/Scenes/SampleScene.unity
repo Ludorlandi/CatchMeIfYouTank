@@ -1157,43 +1157,63 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sounds:
-  - name: 
-    clip: {fileID: 0}
-    volume: 0
+  - name: Sparo
+    clip: {fileID: 8300000, guid: 485ff245154d72248bc881e04fc10635, type: 3}
+    volume: 1
     pitch: 0
     loop: 0
     source: {fileID: 0}
-  - name: 
-    clip: {fileID: 0}
-    volume: 0
-    pitch: 0
+  - name: morte
+    clip: {fileID: 8300000, guid: 0abdedee431c1bb4597fa6080199cd6c, type: 3}
+    volume: 1
+    pitch: 1.51
     loop: 0
     source: {fileID: 0}
-  - name: 
-    clip: {fileID: 0}
-    volume: 0
-    pitch: 0
+  - name: ricarica
+    clip: {fileID: 8300000, guid: 51ba429d76f72024db856f93c4ccabd9, type: 3}
+    volume: 1
+    pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: 
-    clip: {fileID: 0}
-    volume: 0
-    pitch: 0
+  - name: accelerazione
+    clip: {fileID: 8300000, guid: c9e328696c9a6a94da0d28d1c93170cb, type: 3}
+    volume: 1
+    pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: 
-    clip: {fileID: 0}
-    volume: 0
-    pitch: 0
+  - name: decelerazione
+    clip: {fileID: 8300000, guid: ecfc9c4380082e1488a23bfde5ab9f82, type: 3}
+    volume: 1
+    pitch: 1
     loop: 0
     source: {fileID: 0}
-  - name: 
-    clip: {fileID: 0}
-    volume: 0
-    pitch: 0
+  - name: movimento
+    clip: {fileID: 8300000, guid: 2747a6b2e6e505540af4eef171fa24e7, type: 3}
+    volume: 0.7
+    pitch: 0.7
+    loop: 1
+    source: {fileID: 0}
+  - name: carica proiettile
+    clip: {fileID: 8300000, guid: 97d8fade40a3fd243b3341fa866a9e56, type: 3}
+    volume: 1
+    pitch: 1.5
+    loop: 1
+    source: {fileID: 0}
+  - name: ost
+    clip: {fileID: 8300000, guid: 8332cf1080894344a8a5bea7720e5029, type: 3}
+    volume: 0.4
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: carica max
+    clip: {fileID: 8300000, guid: ce8ff41aa5b04e84eb2aff134ed04bff, type: 3}
+    volume: 1
+    pitch: 1.5
     loop: 0
     source: {fileID: 0}
   masterVolume: 1
+  autoPlayBGM: 1
+  bgmSoundName: ost
 --- !u!4 &622500965
 Transform:
   m_ObjectHideFlags: 0
@@ -1764,8 +1784,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf9dd4806770c0d4dbd307980f19292d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  firstSpawnDelay: 5
-  spawnInterval: 5
+  firstSpawnDelay: 10
+  spawnInterval: 10
   randomizeLayouts: 1
   spawnAreaCenter: {x: 0, y: 0.75, z: 0}
   spawnAreaSize: {x: 6.7, y: 10, z: -0.25}
@@ -1797,7 +1817,15 @@ MonoBehaviour:
   - layoutName: Rimbalz 2
     obstacles:
     - obstaclePrefab: {fileID: 568976232059262121, guid: 2f91d26d667d4bb42b68f23747156782, type: 3}
-      position: {x: 1, y: -3.3, z: 0}
+      position: {x: 1.37, y: -3.66, z: 0}
+      rotation: {x: 0, y: 0, z: 0}
+  - layoutName: portali
+    obstacles:
+    - obstaclePrefab: {fileID: 4287971414619714710, guid: 532ec0aee7d211343a7ad73701715e70, type: 3}
+      position: {x: -1.6, y: 3, z: 0}
+      rotation: {x: 0, y: 0, z: 0}
+    - obstaclePrefab: {fileID: 4175689243637803893, guid: 6f26303761c54494a8d74be9b8d01578, type: 3}
+      position: {x: -0, y: -2, z: 0}
       rotation: {x: 0, y: 0, z: 0}
   spawnWarningSoundName: 
   spawnCompleteSoundName: 
@@ -2855,6 +2883,18 @@ PrefabInstance:
       propertyPath: infiniteAmmo
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 3647999838907513979, guid: e9258de05af860848bdb467412829b1d, type: 3}
+      propertyPath: shootSoundName
+      value: Sparo
+      objectReference: {fileID: 0}
+    - target: {fileID: 3647999838907513979, guid: e9258de05af860848bdb467412829b1d, type: 3}
+      propertyPath: chargingSoundName
+      value: carica proiettile
+      objectReference: {fileID: 0}
+    - target: {fileID: 3647999838907513979, guid: e9258de05af860848bdb467412829b1d, type: 3}
+      propertyPath: chargeCompleteSoundName
+      value: carica max
+      objectReference: {fileID: 0}
     - target: {fileID: 4228599131299857462, guid: e9258de05af860848bdb467412829b1d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -7.61
@@ -2895,6 +2935,30 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5370008980773233997, guid: e9258de05af860848bdb467412829b1d, type: 3}
+      propertyPath: minSpeedForSound
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5370008980773233997, guid: e9258de05af860848bdb467412829b1d, type: 3}
+      propertyPath: movementLoopSoundName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5370008980773233997, guid: e9258de05af860848bdb467412829b1d, type: 3}
+      propertyPath: accelerationStartSoundName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5370008980773233997, guid: e9258de05af860848bdb467412829b1d, type: 3}
+      propertyPath: decelerationStartSoundName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 5885196597234021987, guid: e9258de05af860848bdb467412829b1d, type: 3}
+      propertyPath: deathSoundName
+      value: morte
+      objectReference: {fileID: 0}
+    - target: {fileID: 5885196597234021987, guid: e9258de05af860848bdb467412829b1d, type: 3}
+      propertyPath: respawnSoundName
+      value: 
+      objectReference: {fileID: 0}
     - target: {fileID: 7807228911969759722, guid: e9258de05af860848bdb467412829b1d, type: 3}
       propertyPath: m_Name
       value: Player 1
@@ -2924,6 +2988,18 @@ PrefabInstance:
       propertyPath: chargeBar
       value: 
       objectReference: {fileID: 1208934040}
+    - target: {fileID: 1299018456596106237, guid: 4cfb57388c70ca64c82b696f6c818be3, type: 3}
+      propertyPath: shootSoundName
+      value: Sparo
+      objectReference: {fileID: 0}
+    - target: {fileID: 1299018456596106237, guid: 4cfb57388c70ca64c82b696f6c818be3, type: 3}
+      propertyPath: chargingSoundName
+      value: carica proiettile
+      objectReference: {fileID: 0}
+    - target: {fileID: 1299018456596106237, guid: 4cfb57388c70ca64c82b696f6c818be3, type: 3}
+      propertyPath: chargeCompleteSoundName
+      value: carica max
+      objectReference: {fileID: 0}
     - target: {fileID: 7883268050263565738, guid: 4cfb57388c70ca64c82b696f6c818be3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.67
@@ -2963,6 +3039,30 @@ PrefabInstance:
     - target: {fileID: 7883268050263565738, guid: 4cfb57388c70ca64c82b696f6c818be3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7997306621431044250, guid: 4cfb57388c70ca64c82b696f6c818be3, type: 3}
+      propertyPath: deathSoundName
+      value: morte
+      objectReference: {fileID: 0}
+    - target: {fileID: 7997306621431044250, guid: 4cfb57388c70ca64c82b696f6c818be3, type: 3}
+      propertyPath: respawnSoundName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9119311814150077359, guid: 4cfb57388c70ca64c82b696f6c818be3, type: 3}
+      propertyPath: constrainToScreen
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9119311814150077359, guid: 4cfb57388c70ca64c82b696f6c818be3, type: 3}
+      propertyPath: movementLoopSoundName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9119311814150077359, guid: 4cfb57388c70ca64c82b696f6c818be3, type: 3}
+      propertyPath: accelerationStartSoundName
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 9119311814150077359, guid: 4cfb57388c70ca64c82b696f6c818be3, type: 3}
+      propertyPath: decelerationStartSoundName
+      value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

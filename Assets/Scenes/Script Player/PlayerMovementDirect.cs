@@ -14,6 +14,12 @@ public class PlayerMovementDirect : MonoBehaviour
     [SerializeField] private float chargingSpeedMultiplier = 0.5f; // Velocità ridotta durante carica (50%)
     [SerializeField] private float speedTransitionSpeed = 5f; // Velocità della transizione
 
+    [Header("Audio (Opzionale)")]
+    [SerializeField] private string accelerationStartSoundName = ""; // Suono quando inizi ad accelerare
+    [SerializeField] private string movementLoopSoundName = ""; // Suono loop mentre ti muovi
+    [SerializeField] private string decelerationStartSoundName = ""; // Suono quando inizi a decelerare
+    [SerializeField] private float minSpeedForSound = 2f; // Velocità minima per considerare "in movimento"
+
     [Header("Movement Constraints")]
     [SerializeField] private bool constrainToScreen = true;
     [SerializeField] private float minX = -15f;
@@ -26,6 +32,10 @@ public class PlayerMovementDirect : MonoBehaviour
     private Quaternion initialRotation;
     private PlayerShootingDirect shootingScript;
     private float currentSpeedMultiplier = 1f; // Inizia a velocità normale
+
+    // Movement sound states
+    private bool wasMoving = false;
+    private bool isPlayingMovementLoop = false;
 
     void Awake()
     {
@@ -111,6 +121,9 @@ public class PlayerMovementDirect : MonoBehaviour
         rb.linearVelocity = currentVelocity;
         rb.angularVelocity = Vector3.zero;
 
+        // Gestisci suoni movimento
+        HandleMovementSounds();
+
         // Limita movimento
         if (constrainToScreen)
         {
@@ -127,6 +140,61 @@ public class PlayerMovementDirect : MonoBehaviour
             }
 
             rb.position = pos;
+        }
+    }
+
+    void HandleMovementSounds()
+    {
+        if (SoundManager.Instance == null) return;
+
+        bool isMovingNow = currentVelocity.magnitude > minSpeedForSound;
+
+        // Transizione: Fermo → In movimento
+        if (isMovingNow && !wasMoving)
+        {
+            // Suona accelerazione start
+            if (!string.IsNullOrEmpty(accelerationStartSoundName))
+            {
+                SoundManager.Instance.Play(accelerationStartSoundName);
+            }
+
+            // Avvia loop movimento (dopo un attimo)
+            if (!string.IsNullOrEmpty(movementLoopSoundName))
+            {
+                Invoke(nameof(StartMovementLoop), 0.1f);
+            }
+        }
+        // Transizione: In movimento → Fermo
+        else if (!isMovingNow && wasMoving)
+        {
+            // Ferma loop movimento
+            StopMovementLoop();
+
+            // Suona decelerazione start
+            if (!string.IsNullOrEmpty(decelerationStartSoundName))
+            {
+                SoundManager.Instance.Play(decelerationStartSoundName);
+            }
+        }
+
+        wasMoving = isMovingNow;
+    }
+
+    void StartMovementLoop()
+    {
+        if (SoundManager.Instance != null && !string.IsNullOrEmpty(movementLoopSoundName))
+        {
+            SoundManager.Instance.Play(movementLoopSoundName);
+            isPlayingMovementLoop = true;
+        }
+    }
+
+    void StopMovementLoop()
+    {
+        if (SoundManager.Instance != null && !string.IsNullOrEmpty(movementLoopSoundName) && isPlayingMovementLoop)
+        {
+            SoundManager.Instance.Stop(movementLoopSoundName);
+            isPlayingMovementLoop = false;
         }
     }
 

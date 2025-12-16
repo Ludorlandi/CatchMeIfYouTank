@@ -86,15 +86,28 @@ public class PlayerHealth : MonoBehaviour
             }
         }
 
-        // Suona il suono della morte se specificato
-        if (!string.IsNullOrEmpty(deathSoundName) && SoundManager.Instance != null)
-        {
-            SoundManager.Instance.Play(deathSoundName);
-        }
-
         isDead = true;
 
-        // Disabilita il player
+        // Suona il suono della morte PRIMA di disabilitare (così non viene fermato)
+        Debug.Log($"[DEATH SOUND] deathSoundName = '{deathSoundName}'");
+        Debug.Log($"[DEATH SOUND] IsNullOrEmpty? {string.IsNullOrEmpty(deathSoundName)}");
+        Debug.Log($"[DEATH SOUND] SoundManager.Instance = {SoundManager.Instance}");
+
+        if (!string.IsNullOrEmpty(deathSoundName) && SoundManager.Instance != null)
+        {
+            Debug.Log($"[DEATH SOUND] Chiamando PlayAtPosition('{deathSoundName}')");
+            // Usa PlayAtPosition invece di Play - crea un AudioSource temporaneo che non viene fermato
+            SoundManager.Instance.PlayAtPosition(deathSoundName, transform.position);
+        }
+        else
+        {
+            if (string.IsNullOrEmpty(deathSoundName))
+                Debug.LogWarning("[DEATH SOUND] Nome suono VUOTO!");
+            if (SoundManager.Instance == null)
+                Debug.LogWarning("[DEATH SOUND] SoundManager è NULL!");
+        }
+
+        // Disabilita il player (dopo aver suonato il suono!)
         DisablePlayer();
 
         // Respawn dopo un delay

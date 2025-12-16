@@ -155,6 +155,9 @@ MonoBehaviour:
   respawnOnDeath: 1
   respawnDelay: 2
   respawnPosition: {x: 0, y: 0, z: 0}
+  ammoOnHit: 1
+  deathSoundName: Esplosione tank
+  respawnSoundName: 
 --- !u!114 &9119311814150077359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,6 +208,7 @@ MonoBehaviour:
   infiniteAmmo: 1
   ammoText: {fileID: 0}
   chargeBar: {fileID: 0}
+  shootSoundName: 
 --- !u!1 &3229098587331207753
 GameObject:
   m_ObjectHideFlags: 0

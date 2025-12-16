@@ -123,6 +123,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNumber: 2
   ammoToGive: 1
+  pickupSoundName: ricarica
   flashColor: {r: 0, g: 0.75398135, b: 1, a: 1}
   flashDuration: 0.7
 --- !u!1 &4797907565955031425
@@ -249,5 +250,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerNumber: 1
   ammoToGive: 1
+  pickupSoundName: ricarica
   flashColor: {r: 0, g: 0.75398135, b: 1, a: 1}
   flashDuration: 0.2

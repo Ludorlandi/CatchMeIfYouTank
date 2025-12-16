@@ -26,6 +26,8 @@ public class SoundManager : MonoBehaviour
 
     [Header("Settings")]
     [SerializeField] private float masterVolume = 1f;
+    [SerializeField] private bool autoPlayBGM = true; // Avvia automaticamente la musica
+    [SerializeField] private string bgmSoundName = "BGM"; // Nome del BGM da suonare
 
     // Singleton
     public static SoundManager Instance { get; private set; }
@@ -53,6 +55,16 @@ public class SoundManager : MonoBehaviour
             sound.source.pitch = sound.pitch;
             sound.source.loop = sound.loop;
             sound.source.playOnAwake = false;
+        }
+    }
+
+    void Start()
+    {
+        // Avvia automaticamente la musica di sottofondo se richiesto
+        if (autoPlayBGM && !string.IsNullOrEmpty(bgmSoundName))
+        {
+            Play(bgmSoundName);
+            Debug.Log($"BGM '{bgmSoundName}' avviato automaticamente");
         }
     }
 
