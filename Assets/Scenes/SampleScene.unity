@@ -2823,6 +2823,31 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 7807228911969759722, guid: e9258de05af860848bdb467412829b1d, type: 3}
   m_PrefabInstance: {fileID: 941732243904624509}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1982651610
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1982651601}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94d5496ed8d135f4e93056400a740293, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gamepadIndex: 0
+  grapplingHookPrefab: {fileID: 63352094938429286, guid: 5a8e25be8e5913c4fb0c9450ac4d7ebf, type: 3}
+  hookSpeed: 20
+  maxDistance: 15
+  pullSpeed: 15
+  minDistance: 0.5
+  maxHoldDistance: 30
+  rope: {fileID: 0}
+  ropeColor: {r: 0, g: 1, b: 1, a: 1}
+  ropeWidth: 0.1
+  shootSoundName: 
+  attachSoundName: 
+  detachSoundName: 
 --- !u!1 &2069318765
 GameObject:
   m_ObjectHideFlags: 0
@@ -2958,6 +2983,10 @@ PrefabInstance:
       value: carica proiettile
       objectReference: {fileID: 0}
     - target: {fileID: 3647999838907513979, guid: e9258de05af860848bdb467412829b1d, type: 3}
+      propertyPath: cannonRotationSpeed
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3647999838907513979, guid: e9258de05af860848bdb467412829b1d, type: 3}
       propertyPath: chargeCompleteSoundName
       value: carica max
       objectReference: {fileID: 0}
@@ -3032,7 +3061,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7807228911969759722, guid: e9258de05af860848bdb467412829b1d, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1982651610}
   m_SourcePrefab: {fileID: 100100000, guid: e9258de05af860848bdb467412829b1d, type: 3}
 --- !u!1001 &2143977320677616901
 PrefabInstance:
@@ -3061,6 +3093,10 @@ PrefabInstance:
     - target: {fileID: 1299018456596106237, guid: 4cfb57388c70ca64c82b696f6c818be3, type: 3}
       propertyPath: chargingSoundName
       value: carica proiettile
+      objectReference: {fileID: 0}
+    - target: {fileID: 1299018456596106237, guid: 4cfb57388c70ca64c82b696f6c818be3, type: 3}
+      propertyPath: cannonRotationSpeed
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 1299018456596106237, guid: 4cfb57388c70ca64c82b696f6c818be3, type: 3}
       propertyPath: chargeCompleteSoundName
@@ -3133,7 +3169,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 55780312092526746, guid: 4cfb57388c70ca64c82b696f6c818be3, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7807228911174062088}
   m_SourcePrefab: {fileID: 100100000, guid: 4cfb57388c70ca64c82b696f6c818be3, type: 3}
 --- !u!1001 &4543197972014892637
 PrefabInstance:
@@ -3275,6 +3314,31 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 55780312092526746, guid: 4cfb57388c70ca64c82b696f6c818be3, type: 3}
   m_PrefabInstance: {fileID: 2143977320677616901}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &7807228911174062088
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7807228911174062079}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94d5496ed8d135f4e93056400a740293, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gamepadIndex: 1
+  grapplingHookPrefab: {fileID: 63352094938429286, guid: 5a8e25be8e5913c4fb0c9450ac4d7ebf, type: 3}
+  hookSpeed: 20
+  maxDistance: 15
+  pullSpeed: 15
+  minDistance: 0.5
+  maxHoldDistance: 30
+  rope: {fileID: 0}
+  ropeColor: {r: 1, g: 0.45315844, b: 0, a: 1}
+  ropeWidth: 0.1
+  shootSoundName: 
+  attachSoundName: 
+  detachSoundName: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
