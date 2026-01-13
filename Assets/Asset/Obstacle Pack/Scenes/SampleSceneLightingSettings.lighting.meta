@@ -1,0 +1,15 @@
+fileFormatVersion: 2
+guid: 477cc4148fad3449482a3bc3178594e2
+NativeFormatImporter:
+  externalObjects: {}
+  mainObjectFileID: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+AssetOrigin:
+  serializedVersion: 1
+  productId: 221375
+  packageName: Hyper-Casual Obstacle Pack
+  packageVersion: 1.0.0
+  assetPath: Assets/Obstacle Pack/Scenes/SampleSceneLightingSettings.lighting
+  uploadId: 526733
