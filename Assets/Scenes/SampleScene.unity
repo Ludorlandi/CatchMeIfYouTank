@@ -119,93 +119,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
---- !u!1 &4145981
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 4145983}
-  - component: {fileID: 4145982}
-  m_Layer: 0
-  m_Name: Sfondo bello campo
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!212 &4145982
-SpriteRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4145981}
-  m_Enabled: 1
-  m_CastShadows: 0
-  m_ReceiveShadows: 0
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 0
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 2100000, guid: 9dfc825aed78fcd4ba02077103263b40, type: 2}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 0
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 1a3a066b4c68bec46a1c641a5f144aa0, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_FlipX: 0
-  m_FlipY: 0
-  m_DrawMode: 0
-  m_Size: {x: 17.69, y: 10.8}
-  m_AdaptiveModeThreshold: 0.5
-  m_SpriteTileMode: 0
-  m_WasSpriteAssigned: 1
-  m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
---- !u!4 &4145983
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4145981}
-  serializedVersion: 2
-  m_LocalRotation: {x: -1, y: -0, z: -0, w: 0.0000004768371}
-  m_LocalPosition: {x: -0.1, y: 1, z: 1.06}
-  m_LocalScale: {x: 1.35, y: 1.35, z: 1.5946201}
-  m_ConstrainProportionsScale: 1
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -180, y: 0, z: 0}
 --- !u!1 &30959289
 GameObject:
   m_ObjectHideFlags: 0
@@ -1245,19 +1158,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sounds:
   - name: Sparo
-    clip: {fileID: 8300000, guid: 98b13ef4f3626f347a6f47419049cc5e, type: 3}
+    clip: {fileID: 8300000, guid: 485ff245154d72248bc881e04fc10635, type: 3}
     volume: 1
     pitch: 0
     loop: 0
     source: {fileID: 0}
   - name: morte
-    clip: {fileID: 8300000, guid: c2a55efe0d85e534b90abf62e88aa975, type: 3}
+    clip: {fileID: 8300000, guid: 0abdedee431c1bb4597fa6080199cd6c, type: 3}
     volume: 1
     pitch: 1.51
     loop: 0
     source: {fileID: 0}
   - name: ricarica
-    clip: {fileID: 8300000, guid: 08c1b04c8fa732b4a89adb80846a34b1, type: 3}
+    clip: {fileID: 8300000, guid: 51ba429d76f72024db856f93c4ccabd9, type: 3}
     volume: 1
     pitch: 1
     loop: 0
@@ -1275,97 +1188,91 @@ MonoBehaviour:
     loop: 0
     source: {fileID: 0}
   - name: movimento
-    clip: {fileID: 8300000, guid: ff55548ae6c0f9f4fbfacd6f7bd9d00b, type: 3}
+    clip: {fileID: 8300000, guid: 7ddeee49e720f2f4f84bf4f0870a54b9, type: 3}
     volume: 0.4
     pitch: 1.04
     loop: 1
     source: {fileID: 0}
   - name: carica proiettile
-    clip: {fileID: 8300000, guid: fc22d6d9e8a6c844c844634f9d21973f, type: 3}
-    volume: 0.809
+    clip: {fileID: 8300000, guid: 97d8fade40a3fd243b3341fa866a9e56, type: 3}
+    volume: 1
     pitch: 1.5
     loop: 1
     source: {fileID: 0}
   - name: ost
-    clip: {fileID: 8300000, guid: 18d4b8b88f425e046af5511bddfe8ec0, type: 3}
+    clip: {fileID: 8300000, guid: 8332cf1080894344a8a5bea7720e5029, type: 3}
     volume: 0.35
     pitch: 1
     loop: 1
     source: {fileID: 0}
   - name: carica max
-    clip: {fileID: 8300000, guid: 4256ccee31be4ac43af683eb7ef5b43d, type: 3}
-    volume: 0.809
+    clip: {fileID: 8300000, guid: ce8ff41aa5b04e84eb2aff134ed04bff, type: 3}
+    volume: 1
     pitch: 1.5
     loop: 0
     source: {fileID: 0}
   - name: potenziamento
-    clip: {fileID: 8300000, guid: 14a72096efd762d49a1ec0df0d0d61a2, type: 3}
+    clip: {fileID: 8300000, guid: b374a057bfd2fcf468ef61a3091695b8, type: 3}
     volume: 1
     pitch: 1.5
     loop: 0
     source: {fileID: 0}
   - name: 1
-    clip: {fileID: 8300000, guid: c2926820d32b20140b2a3ebcf7e32c61, type: 3}
+    clip: {fileID: 8300000, guid: 6cd323ac23d94814a870f048caa42b52, type: 3}
     volume: 1
     pitch: 1.5
     loop: 0
     source: {fileID: 0}
   - name: 2
-    clip: {fileID: 8300000, guid: e0caf30a2cb3f05428390d2d8b429885, type: 3}
+    clip: {fileID: 8300000, guid: 4be0d7ae847c2644da1a2646c233e1cb, type: 3}
     volume: 1
     pitch: 1.5
     loop: 0
     source: {fileID: 0}
   - name: 3
-    clip: {fileID: 8300000, guid: 1f1e38791bfead2438dcef1be51e47dd, type: 3}
+    clip: {fileID: 8300000, guid: 11e5550f0361c1547912dc4becfb703b, type: 3}
     volume: 1
     pitch: 1.5
     loop: 0
     source: {fileID: 0}
   - name: 4
-    clip: {fileID: 8300000, guid: 35e5f084a74c2e14e9c425b89c7e4f76, type: 3}
+    clip: {fileID: 8300000, guid: df52cf35d3debff4dbd0f32cd1887f9f, type: 3}
     volume: 1
     pitch: 1.5
     loop: 0
     source: {fileID: 0}
   - name: 5
-    clip: {fileID: 8300000, guid: 9896353018b5d614a92cdc09b66acad6, type: 3}
+    clip: {fileID: 8300000, guid: eaafd3d52d5963f48a79c8d7c91cc52d, type: 3}
     volume: 1
     pitch: 1.5
     loop: 0
     source: {fileID: 0}
   - name: 6
-    clip: {fileID: 8300000, guid: f1a683757519cb3459e7577db0304b92, type: 3}
+    clip: {fileID: 8300000, guid: bf4252eb0891c2f439629ce2381eb5a6, type: 3}
     volume: 1
     pitch: 1.5
     loop: 0
     source: {fileID: 0}
   - name: 7
-    clip: {fileID: 8300000, guid: 2c4ad98ab5cfdff478bbc5465174f973, type: 3}
+    clip: {fileID: 8300000, guid: 3603068fc6705f04eb9b7b5497662396, type: 3}
     volume: 1
     pitch: 1.5
     loop: 0
     source: {fileID: 0}
   - name: 8
-    clip: {fileID: 8300000, guid: 84bb437015e207e4bbdd08ff4b6b724e, type: 3}
+    clip: {fileID: 8300000, guid: 5bb9183345d823641bf438072941e4d0, type: 3}
     volume: 1
     pitch: 1.5
     loop: 0
     source: {fileID: 0}
   - name: 9
-    clip: {fileID: 8300000, guid: ba6b4ce6a6f958b4b8b29b69342c6c94, type: 3}
+    clip: {fileID: 8300000, guid: 3e0d7b928c9c7014da8c704fd5380150, type: 3}
     volume: 1
     pitch: 1.5
     loop: 0
     source: {fileID: 0}
   - name: 10
-    clip: {fileID: 8300000, guid: c5c7499a369c55f4b8084e6a1c6a767e, type: 3}
-    volume: 1
-    pitch: 1.5
-    loop: 0
-    source: {fileID: 0}
-  - name: Raggio
-    clip: {fileID: 8300000, guid: 7a135dae3b2754544ba13eb981c1c3f9, type: 3}
+    clip: {fileID: 8300000, guid: b8e16f57d491a424b91155a52f6a0d13, type: 3}
     volume: 1
     pitch: 1.5
     loop: 0
@@ -1587,7 +1494,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!64 &653075844
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -3129,7 +3036,7 @@ PrefabInstance:
       objectReference: {fileID: 81760761}
     - target: {fileID: 3647999838907513979, guid: e9258de05af860848bdb467412829b1d, type: 3}
       propertyPath: infiniteAmmo
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3647999838907513979, guid: e9258de05af860848bdb467412829b1d, type: 3}
       propertyPath: shootSoundName
@@ -3243,10 +3150,6 @@ PrefabInstance:
       propertyPath: chargeBar
       value: 
       objectReference: {fileID: 1208934040}
-    - target: {fileID: 1299018456596106237, guid: 4cfb57388c70ca64c82b696f6c818be3, type: 3}
-      propertyPath: infiniteAmmo
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1299018456596106237, guid: 4cfb57388c70ca64c82b696f6c818be3, type: 3}
       propertyPath: shootSoundName
       value: Sparo
@@ -3434,7 +3337,6 @@ SceneRoots:
   - {fileID: 410087041}
   - {fileID: 832575519}
   - {fileID: 653075847}
-  - {fileID: 4145983}
   - {fileID: 818810436}
   - {fileID: 941732243904624509}
   - {fileID: 2143977320677616901}
