@@ -1,0 +1,182 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3249509452545689406
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1997346637477393457}
+  - component: {fileID: 6720827010208185199}
+  m_Layer: 0
+  m_Name: SoundManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1997346637477393457
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3249509452545689406}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -1.3612365, y: 1.1892124, z: 7.5984116}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6720827010208185199
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3249509452545689406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8205986b19a2824aa35c6c191d92d8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sounds:
+  - name: Sparo
+    clip: {fileID: 8300000, guid: 98b13ef4f3626f347a6f47419049cc5e, type: 3}
+    volume: 1
+    pitch: 0
+    loop: 0
+    source: {fileID: 0}
+  - name: morte
+    clip: {fileID: 8300000, guid: c2a55efe0d85e534b90abf62e88aa975, type: 3}
+    volume: 1
+    pitch: 1.51
+    loop: 0
+    source: {fileID: 0}
+  - name: ricarica
+    clip: {fileID: 8300000, guid: 08c1b04c8fa732b4a89adb80846a34b1, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: accelerazione
+    clip: {fileID: 8300000, guid: c9e328696c9a6a94da0d28d1c93170cb, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: decelerazione
+    clip: {fileID: 8300000, guid: ecfc9c4380082e1488a23bfde5ab9f82, type: 3}
+    volume: 1
+    pitch: 1
+    loop: 0
+    source: {fileID: 0}
+  - name: movimento
+    clip: {fileID: 8300000, guid: ff55548ae6c0f9f4fbfacd6f7bd9d00b, type: 3}
+    volume: 0.4
+    pitch: 1.04
+    loop: 1
+    source: {fileID: 0}
+  - name: carica proiettile
+    clip: {fileID: 8300000, guid: fc22d6d9e8a6c844c844634f9d21973f, type: 3}
+    volume: 1
+    pitch: 1.5
+    loop: 1
+    source: {fileID: 0}
+  - name: ost
+    clip: {fileID: 8300000, guid: 18d4b8b88f425e046af5511bddfe8ec0, type: 3}
+    volume: 0.35
+    pitch: 1
+    loop: 1
+    source: {fileID: 0}
+  - name: carica max
+    clip: {fileID: 8300000, guid: 4256ccee31be4ac43af683eb7ef5b43d, type: 3}
+    volume: 1
+    pitch: 1.5
+    loop: 0
+    source: {fileID: 0}
+  - name: potenziamento
+    clip: {fileID: 8300000, guid: 14a72096efd762d49a1ec0df0d0d61a2, type: 3}
+    volume: 1
+    pitch: 1.5
+    loop: 0
+    source: {fileID: 0}
+  - name: 1
+    clip: {fileID: 8300000, guid: c2926820d32b20140b2a3ebcf7e32c61, type: 3}
+    volume: 1
+    pitch: 1.5
+    loop: 0
+    source: {fileID: 0}
+  - name: 2
+    clip: {fileID: 8300000, guid: e0caf30a2cb3f05428390d2d8b429885, type: 3}
+    volume: 1
+    pitch: 1.5
+    loop: 0
+    source: {fileID: 0}
+  - name: 3
+    clip: {fileID: 8300000, guid: 1f1e38791bfead2438dcef1be51e47dd, type: 3}
+    volume: 1
+    pitch: 1.5
+    loop: 0
+    source: {fileID: 0}
+  - name: 4
+    clip: {fileID: 8300000, guid: 35e5f084a74c2e14e9c425b89c7e4f76, type: 3}
+    volume: 1
+    pitch: 1.5
+    loop: 0
+    source: {fileID: 0}
+  - name: 5
+    clip: {fileID: 8300000, guid: 9896353018b5d614a92cdc09b66acad6, type: 3}
+    volume: 1
+    pitch: 1.5
+    loop: 0
+    source: {fileID: 0}
+  - name: 6
+    clip: {fileID: 8300000, guid: f1a683757519cb3459e7577db0304b92, type: 3}
+    volume: 1
+    pitch: 1.5
+    loop: 0
+    source: {fileID: 0}
+  - name: 7
+    clip: {fileID: 8300000, guid: 2c4ad98ab5cfdff478bbc5465174f973, type: 3}
+    volume: 1
+    pitch: 1.5
+    loop: 0
+    source: {fileID: 0}
+  - name: 8
+    clip: {fileID: 8300000, guid: 84bb437015e207e4bbdd08ff4b6b724e, type: 3}
+    volume: 1
+    pitch: 1.5
+    loop: 0
+    source: {fileID: 0}
+  - name: 9
+    clip: {fileID: 8300000, guid: ba6b4ce6a6f958b4b8b29b69342c6c94, type: 3}
+    volume: 1
+    pitch: 1.5
+    loop: 0
+    source: {fileID: 0}
+  - name: 10
+    clip: {fileID: 8300000, guid: c5c7499a369c55f4b8084e6a1c6a767e, type: 3}
+    volume: 1
+    pitch: 1.5
+    loop: 0
+    source: {fileID: 0}
+  - name: Durante Spawn Ostacolo
+    clip: {fileID: 8300000, guid: f6355e0b267aafb48bddb6ed21073c0e, type: 3}
+    volume: 1
+    pitch: 1.5
+    loop: 0
+    source: {fileID: 0}
+  - name: Spawn Ostacolo
+    clip: {fileID: 8300000, guid: 964a8d283cd28ec4c9da6d5a406067d3, type: 3}
+    volume: 1
+    pitch: 1.5
+    loop: 0
+    source: {fileID: 0}
+  masterVolume: 1
+  autoPlayBGM: 1
+  bgmSoundName: ost

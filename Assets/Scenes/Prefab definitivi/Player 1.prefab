@@ -47,6 +47,7 @@ GameObject:
   - component: {fileID: 5885196597234021987}
   - component: {fileID: 5370008980773233997}
   - component: {fileID: 3647999838907513979}
+  - component: {fileID: 6130718575384613094}
   m_Layer: 6
   m_Name: Player 1
   m_TagString: Player 1
@@ -187,7 +188,7 @@ MonoBehaviour:
   respawnDelay: 2
   respawnPosition: {x: 0, y: 0, z: 0}
   ammoOnHit: 1
-  deathSoundName: Esplosione tank
+  deathSoundName: morte
   respawnSoundName: 
 --- !u!114 &5370008980773233997
 MonoBehaviour:
@@ -208,6 +209,10 @@ MonoBehaviour:
   moveOnXYPlane: 1
   chargingSpeedMultiplier: 0.2
   speedTransitionSpeed: 5
+  accelerationStartSoundName: 
+  movementLoopSoundName: movimento
+  decelerationStartSoundName: 
+  minSpeedForSound: 1
   constrainToScreen: 1
   minX: -15
   maxX: 15
@@ -233,13 +238,40 @@ MonoBehaviour:
   maxProjectileSpeed: 25
   maxChargeTime: 2
   shootCooldown: 0.5
-  cannonRotationSpeed: 10
+  cannonRotationSpeed: 6
   maxAmmo: 5
   startingAmmo: 1
-  infiniteAmmo: 1
+  infiniteAmmo: 0
   ammoText: {fileID: 0}
   chargeBar: {fileID: 0}
+  shootSoundName: Sparo
+  chargingSoundName: carica proiettile
+  chargeCompleteSoundName: carica max
+--- !u!114 &6130718575384613094
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7807228911969759722}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94d5496ed8d135f4e93056400a740293, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gamepadIndex: 0
+  grapplingHookPrefab: {fileID: 63352094938429286, guid: 5a8e25be8e5913c4fb0c9450ac4d7ebf, type: 3}
+  hookSpeed: 20
+  maxDistance: 15
+  pullSpeed: 15
+  minDistance: 1
+  maxHoldDistance: 30
+  rope: {fileID: 0}
+  ropeColor: {r: 0, g: 1, b: 1, a: 1}
+  ropeWidth: 0.1
   shootSoundName: 
+  attachSoundName: 
+  detachSoundName: 
 --- !u!1 &8362547935965279175
 GameObject:
   m_ObjectHideFlags: 0

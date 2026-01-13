@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 7997306621431044250}
   - component: {fileID: 9119311814150077359}
   - component: {fileID: 1299018456596106237}
+  - component: {fileID: 1592521827279557616}
   m_Layer: 6
   m_Name: Player 2
   m_TagString: Player 2
@@ -32,7 +33,7 @@ Transform:
   m_GameObject: {fileID: 55780312092526746}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 7.67, y: 0.54, z: -0.2119}
+  m_LocalPosition: {x: 8.5, y: 0.75, z: -0.1}
   m_LocalScale: {x: 0.8748, y: 0.82, z: 0.3037}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -156,7 +157,7 @@ MonoBehaviour:
   respawnDelay: 2
   respawnPosition: {x: 0, y: 0, z: 0}
   ammoOnHit: 1
-  deathSoundName: Esplosione tank
+  deathSoundName: morte
   respawnSoundName: 
 --- !u!114 &9119311814150077359
 MonoBehaviour:
@@ -177,6 +178,10 @@ MonoBehaviour:
   moveOnXYPlane: 1
   chargingSpeedMultiplier: 0.2
   speedTransitionSpeed: 5
+  accelerationStartSoundName: 
+  movementLoopSoundName: movimento
+  decelerationStartSoundName: 
+  minSpeedForSound: 2
   constrainToScreen: 1
   minX: -15
   maxX: 15
@@ -202,13 +207,40 @@ MonoBehaviour:
   maxProjectileSpeed: 25
   maxChargeTime: 2
   shootCooldown: 0.5
-  cannonRotationSpeed: 10
+  cannonRotationSpeed: 6
   maxAmmo: 5
   startingAmmo: 1
-  infiniteAmmo: 1
+  infiniteAmmo: 0
   ammoText: {fileID: 0}
   chargeBar: {fileID: 0}
+  shootSoundName: Sparo
+  chargingSoundName: carica proiettile
+  chargeCompleteSoundName: carica max
+--- !u!114 &1592521827279557616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 55780312092526746}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 94d5496ed8d135f4e93056400a740293, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  gamepadIndex: 1
+  grapplingHookPrefab: {fileID: 63352094938429286, guid: 5a8e25be8e5913c4fb0c9450ac4d7ebf, type: 3}
+  hookSpeed: 20
+  maxDistance: 15
+  pullSpeed: 15
+  minDistance: 0.5
+  maxHoldDistance: 30
+  rope: {fileID: 0}
+  ropeColor: {r: 1, g: 0.45315844, b: 0, a: 1}
+  ropeWidth: 0.1
   shootSoundName: 
+  attachSoundName: 
+  detachSoundName: 
 --- !u!1 &3229098587331207753
 GameObject:
   m_ObjectHideFlags: 0
