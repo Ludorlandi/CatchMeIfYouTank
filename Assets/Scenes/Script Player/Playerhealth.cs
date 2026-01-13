@@ -7,6 +7,11 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private float respawnDelay = 2f;
     [SerializeField] private Vector3 respawnPosition;
 
+    [Header("Invincibility Settings")]
+    [SerializeField] private bool invincibleOnRespawn = true; // Invincibile dopo respawn
+    [SerializeField] private float invincibilityDuration = 3f; // Durata invincibilità (secondi)
+    [SerializeField] private float flickerSpeed = 0.1f; // Velocità lampeggio
+
     [Header("Ammo Settings")]
     [SerializeField] private int ammoOnHit = 1; // Munizioni che ricevi quando vieni colpito
 
@@ -15,6 +20,10 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private string respawnSoundName = ""; // Suono quando respawna
 
     private bool isDead = false;
+    private bool isInvincible = false; // Stato invincibilità
+
+    // Proprietà pubblica per controllare invincibilità
+    public bool IsInvincible => isInvincible;
 
     void Start()
     {
@@ -63,6 +72,13 @@ public class PlayerHealth : MonoBehaviour
     public void TakeDamage(int damage, string killerTag = "")
     {
         if (isDead) return;
+
+        // Se invincibile, ignora danno
+        if (isInvincible)
+        {
+            Debug.Log($"{gameObject.name} è INVINCIBILE! Danno ignorato.");
+            return;
+        }
 
         Debug.Log($"{gameObject.name} ha preso {damage} danno da {killerTag}");
 
@@ -133,6 +149,10 @@ public class PlayerHealth : MonoBehaviour
         PlayerShootingDirect shootingDirect = GetComponent<PlayerShootingDirect>();
         if (shootingDirect != null) shootingDirect.enabled = false;
 
+        // Disabilita il grappling system
+        GrapplingSystem grappling = GetComponent<GrapplingSystem>();
+        if (grappling != null) grappling.enabled = false;
+
         // Opzionale: Nascondi il player
         Renderer[] renderers = GetComponentsInChildren<Renderer>();
         foreach (Renderer rend in renderers)
@@ -159,6 +179,12 @@ public class PlayerHealth : MonoBehaviour
         // Riabilita il player
         EnablePlayer();
 
+        // Attiva invincibilità temporanea
+        if (invincibleOnRespawn)
+        {
+            StartCoroutine(InvincibilityCoroutine());
+        }
+
         // Suona il suono del respawn se specificato
         if (!string.IsNullOrEmpty(respawnSoundName) && SoundManager.Instance != null)
         {
@@ -182,6 +208,10 @@ public class PlayerHealth : MonoBehaviour
         PlayerShootingDirect shootingDirect = GetComponent<PlayerShootingDirect>();
         if (shootingDirect != null) shootingDirect.enabled = true;
 
+        // Riabilita il grappling system
+        GrapplingSystem grappling = GetComponent<GrapplingSystem>();
+        if (grappling != null) grappling.enabled = true;
+
         // Rimostra il player
         Renderer[] renderers = GetComponentsInChildren<Renderer>();
         foreach (Renderer rend in renderers)
@@ -201,5 +231,41 @@ public class PlayerHealth : MonoBehaviour
     public void SetRespawnPosition(Vector3 position)
     {
         respawnPosition = position;
+    }
+
+    // Coroutine per invincibilità temporanea con effetto lampeggio
+    System.Collections.IEnumerator InvincibilityCoroutine()
+    {
+        isInvincible = true;
+        float elapsedTime = 0f;
+
+        Debug.Log($"{gameObject.name} è INVINCIBILE per {invincibilityDuration} secondi!");
+
+        // Ottieni tutti i renderer
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+
+        // Lampeggia per tutta la durata dell'invincibilità
+        while (elapsedTime < invincibilityDuration)
+        {
+            // Alterna visibilità
+            bool visible = (Mathf.FloorToInt(elapsedTime / flickerSpeed) % 2 == 0);
+
+            foreach (Renderer rend in renderers)
+            {
+                rend.enabled = visible;
+            }
+
+            yield return new WaitForSeconds(flickerSpeed);
+            elapsedTime += flickerSpeed;
+        }
+
+        // Assicurati che sia visibile alla fine
+        foreach (Renderer rend in renderers)
+        {
+            rend.enabled = true;
+        }
+
+        isInvincible = false;
+        Debug.Log($"{gameObject.name} NON è più invincibile!");
     }
 }

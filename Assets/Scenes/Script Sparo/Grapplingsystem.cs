@@ -13,6 +13,13 @@ public class GrapplingSystem : MonoBehaviour
     [Header("Controller")]
     [SerializeField] private int gamepadIndex = 0; // 0 = Player 1, 1 = Player 2
 
+    [Header("Aim Settings")]
+    [SerializeField] private float aimRotationSpeed = 200f; // Gradi per secondo
+    [SerializeField] private bool useIncrementalAim = true; // Rotazione relativa invece che assoluta
+    [SerializeField] private bool limitAimAngle = true; // Limita angolo di mira
+    [SerializeField] private float minAimAngle = -90f; // Angolo minimo
+    [SerializeField] private float maxAimAngle = 90f; // Angolo massimo
+
     [Header("Grapple Projectile")]
     [SerializeField] private GameObject grapplingHookPrefab; // Prefab del "gancio" (pallino)
     [SerializeField] private float hookSpeed = 20f; // Velocità proiettile
@@ -40,6 +47,7 @@ public class GrapplingSystem : MonoBehaviour
     private bool isAttached = false;
     private bool isShooting = false;
     private Vector2 aimDirection = Vector2.right;
+    private float currentAimAngle = 0f; // Angolo corrente per rotazione incrementale
     private float currentDistance;
 
     //射击脚本引用
@@ -60,28 +68,79 @@ public class GrapplingSystem : MonoBehaviour
         rope.startColor = ropeColor;
         rope.endColor = ropeColor;
         rope.positionCount = 2;
+
+        // Inizializza angolo mira in base al player
+        currentAimAngle = (gamepadIndex == 0) ? 0f : 180f;
     }
 
     void Update()
     {
         // Leggi input
         var gamepads = UnityEngine.InputSystem.Gamepad.all;
-        if (gamepadIndex >= gamepads.Count) return;
+        if (gamepadIndex >= gamepads.Count)
+        {
+            Debug.LogWarning($"[GRAPPLE] Gamepad {gamepadIndex} non trovato!");
+            return;
+        }
         var gamepad = gamepads[gamepadIndex];
 
-        // Aggiorna aim (sempre, anche durante grapple!)
+        // Aggiorna aim con rotazione incrementale o assoluta
         Vector2 aimInput = gamepad.rightStick.ReadValue();
-        if (aimInput.magnitude > 0.1f)
+
+        if (useIncrementalAim && aimInput.magnitude > 0.1f)
         {
+            // ROTAZIONE INCREMENTALE (come il cannone)
+            float stickAngle = Mathf.Atan2(aimInput.y, aimInput.x) * Mathf.Rad2Deg;
+            float angleDiff = Mathf.DeltaAngle(currentAimAngle, stickAngle);
+            float rotationStep = aimRotationSpeed * Time.deltaTime * aimInput.magnitude;
+            currentAimAngle += Mathf.Clamp(angleDiff, -rotationStep, rotationStep);
+            currentAimAngle = Mathf.Repeat(currentAimAngle + 180f, 360f) - 180f;
+
+            // Applica limiti angolari
+            if (limitAimAngle)
+            {
+                if (gamepadIndex == 0)
+                {
+                    // Player 1: solo destra (-90° a +90°)
+                    currentAimAngle = Mathf.Clamp(currentAimAngle, minAimAngle, maxAimAngle);
+                }
+                else
+                {
+                    // Player 2: solo sinistra (90° a 270°)
+                    float adjustedAngle = currentAimAngle;
+                    if (adjustedAngle < 0) adjustedAngle += 360f;
+
+                    if (adjustedAngle < 90f)
+                        currentAimAngle = 90f;
+                    else if (adjustedAngle > 270f)
+                        currentAimAngle = -90f;
+                }
+            }
+
+            // Converti angolo in direzione
+            aimDirection = new Vector2(
+                Mathf.Cos(currentAimAngle * Mathf.Deg2Rad),
+                Mathf.Sin(currentAimAngle * Mathf.Deg2Rad)
+            );
+        }
+        else if (!useIncrementalAim && aimInput.magnitude > 0.1f)
+        {
+            // ROTAZIONE ASSOLUTA (sistema vecchio)
             aimDirection = aimInput.normalized;
         }
 
         // Input L2
         float grabInput = gamepad.leftTrigger.ReadValue();
 
+        if (grabInput > 0.01f)
+        {
+            Debug.Log($"[GRAPPLE] L2 premuto: {grabInput}, isAttached: {isAttached}, isShooting: {isShooting}");
+        }
+
         if (grabInput > 0.5f && !isAttached && !isShooting)
         {
             // Spara gancio
+            Debug.Log("[GRAPPLE] Tentativo di sparare gancio!");
             ShootHook();
         }
         else if (grabInput < 0.3f && isAttached)

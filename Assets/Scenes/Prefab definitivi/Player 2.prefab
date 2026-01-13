@@ -207,7 +207,11 @@ MonoBehaviour:
   maxProjectileSpeed: 25
   maxChargeTime: 2
   shootCooldown: 0.5
-  cannonRotationSpeed: 6
+  cannonRotationSpeed: 200
+  useIncrementalRotation: 1
+  limitCannonAngle: 1
+  minCannonAngle: 90
+  maxCannonAngle: 270
   maxAmmo: 5
   startingAmmo: 1
   infiniteAmmo: 0

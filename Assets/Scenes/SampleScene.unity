@@ -1542,67 +1542,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &836435495
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 3185555448487966231, guid: ace504499fdcb39488ab9eb4377721df, type: 3}
-      propertyPath: playerNumber
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 4797907565955031425, guid: ace504499fdcb39488ab9eb4377721df, type: 3}
-      propertyPath: m_Name
-      value: AmmoWall_Player1 (1)
-      objectReference: {fileID: 0}
-    - target: {fileID: 5783030180050334250, guid: ace504499fdcb39488ab9eb4377721df, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 9.870994
-      objectReference: {fileID: 0}
-    - target: {fileID: 5783030180050334250, guid: ace504499fdcb39488ab9eb4377721df, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0.77
-      objectReference: {fileID: 0}
-    - target: {fileID: 5783030180050334250, guid: ace504499fdcb39488ab9eb4377721df, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -0.11090469
-      objectReference: {fileID: 0}
-    - target: {fileID: 5783030180050334250, guid: ace504499fdcb39488ab9eb4377721df, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 5783030180050334250, guid: ace504499fdcb39488ab9eb4377721df, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5783030180050334250, guid: ace504499fdcb39488ab9eb4377721df, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5783030180050334250, guid: ace504499fdcb39488ab9eb4377721df, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5783030180050334250, guid: ace504499fdcb39488ab9eb4377721df, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5783030180050334250, guid: ace504499fdcb39488ab9eb4377721df, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5783030180050334250, guid: ace504499fdcb39488ab9eb4377721df, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: ace504499fdcb39488ab9eb4377721df, type: 3}
 --- !u!1 &879711919
 GameObject:
   m_ObjectHideFlags: 0
@@ -1721,7 +1660,7 @@ MonoBehaviour:
   layouts:
   - layoutName: 'Rimbalzo centrale '
     obstacles:
-    - obstaclePrefab: {fileID: 568976232059262121, guid: 2f91d26d667d4bb42b68f23747156782, type: 3}
+    - obstaclePrefab: {fileID: 568976232059262121, guid: e01833def3db5f04a9317e0dd3da95cf, type: 3}
       position: {x: 0.8, y: 4, z: 0}
       rotation: {x: 0, y: 0, z: 0}
   - layoutName: PowerWall
@@ -1741,7 +1680,7 @@ MonoBehaviour:
       rotation: {x: 0, y: 0, z: 0}
   - layoutName: Rimbalz 2
     obstacles:
-    - obstaclePrefab: {fileID: 568976232059262121, guid: 2f91d26d667d4bb42b68f23747156782, type: 3}
+    - obstaclePrefab: {fileID: 5167800887795103937, guid: 3da486d9433b6fc43bc1c726238c9f98, type: 3}
       position: {x: 1.37, y: -3.66, z: 0}
       rotation: {x: 0, y: 0, z: 0}
   - layoutName: portali
@@ -3101,6 +3040,30 @@ PrefabInstance:
       propertyPath: chargeBar
       value: 
       objectReference: {fileID: 1208934040}
+    - target: {fileID: 1299018456596106237, guid: 4cfb57388c70ca64c82b696f6c818be3, type: 3}
+      propertyPath: infiniteAmmo
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1299018456596106237, guid: 4cfb57388c70ca64c82b696f6c818be3, type: 3}
+      propertyPath: maxCannonAngle
+      value: 260
+      objectReference: {fileID: 0}
+    - target: {fileID: 1299018456596106237, guid: 4cfb57388c70ca64c82b696f6c818be3, type: 3}
+      propertyPath: minCannonAngle
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 1592521827279557616, guid: 4cfb57388c70ca64c82b696f6c818be3, type: 3}
+      propertyPath: pullSpeed
+      value: 25
+      objectReference: {fileID: 0}
+    - target: {fileID: 1592521827279557616, guid: 4cfb57388c70ca64c82b696f6c818be3, type: 3}
+      propertyPath: maxAimAngle
+      value: 260
+      objectReference: {fileID: 0}
+    - target: {fileID: 1592521827279557616, guid: 4cfb57388c70ca64c82b696f6c818be3, type: 3}
+      propertyPath: minAimAngle
+      value: 80
+      objectReference: {fileID: 0}
     - target: {fileID: 7883268050263565738, guid: 4cfb57388c70ca64c82b696f6c818be3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.67
@@ -3140,6 +3103,10 @@ PrefabInstance:
     - target: {fileID: 7883268050263565738, guid: 4cfb57388c70ca64c82b696f6c818be3, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7997306621431044250, guid: 4cfb57388c70ca64c82b696f6c818be3, type: 3}
+      propertyPath: invincibilityDuration
+      value: 1.5
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -3202,6 +3169,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6021229627989344217, guid: ace504499fdcb39488ab9eb4377721df, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 20.06
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -3234,5 +3205,4 @@ SceneRoots:
   - {fileID: 938977529}
   - {fileID: 1346297637}
   - {fileID: 1556784201}
-  - {fileID: 836435495}
   - {fileID: 231445468}
