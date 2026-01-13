@@ -11,8 +11,8 @@ public class PortalWall : MonoBehaviour
     [SerializeField] private float flashDuration = 0.1f;
 
     [Header("Projectile Adjustment")]
-    [SerializeField] private bool maintainVelocity = true; // Mantiene la velocità
-    [SerializeField] private bool flipDirection = false; // Inverte la direzione (opzionale)
+    [SerializeField] private bool maintainEntryDirection = true; // Mantiene direzione di entrata
+    [SerializeField] private float exitOffset = 1f; // Distanza dal portale di uscita
 
     [Header("Audio (Opzionale)")]
     [SerializeField] private string teleportSoundName = ""; // Suono quando teletrasporta
@@ -32,18 +32,18 @@ public class PortalWall : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter(Collision collision)
+    void OnTriggerEnter(Collider other)
     {
         // Controlla se è un proiettile
-        Projectile projectile = collision.gameObject.GetComponent<Projectile>();
+        Projectile projectile = other.GetComponent<Projectile>();
 
         if (projectile != null && !isTeleporting)
         {
-            TeleportProjectile(collision.gameObject, collision);
+            TeleportProjectile(other.gameObject);
         }
     }
 
-    void TeleportProjectile(GameObject projectile, Collision collision)
+    void TeleportProjectile(GameObject projectile)
     {
         if (linkedPortal == null)
         {
@@ -51,31 +51,34 @@ public class PortalWall : MonoBehaviour
             return;
         }
 
-        // Previeni che il portale di destinazione riporti indietro il proiettile
-        linkedPortal.isTeleporting = true;
+        Debug.Log($"[PORTAL] ===== TELEPORT START =====");
+        Debug.Log($"[PORTAL] Da: {gameObject.name} (pos: {transform.position}, rot: {transform.rotation.eulerAngles})");
+        Debug.Log($"[PORTAL] A: {linkedPortal.gameObject.name} (pos: {linkedPortal.transform.position}, rot: {linkedPortal.transform.rotation.eulerAngles})");
 
         // Ottieni il Rigidbody del proiettile
         Rigidbody rb = projectile.GetComponent<Rigidbody>();
 
         if (rb != null)
         {
-            // Salva la velocità attuale
-            Vector3 currentVelocity = rb.linearVelocity;
+            // Salva la velocità attuale (direzione di entrata!)
+            Vector3 entryVelocity = rb.linearVelocity;
+            Vector3 entryDirection = entryVelocity.normalized;
+            float speed = entryVelocity.magnitude;
 
-            // Calcola la nuova posizione
-            // Posiziona il proiettile davanti al portale di uscita
-            Vector3 exitDirection = linkedPortal.transform.forward;
+            Debug.Log($"[PORTAL] Entry velocity: {entryVelocity}, direction: {entryDirection}");
 
-            // Se flipDirection è attivo, inverti la direzione
-            if (flipDirection)
-            {
-                exitDirection = -exitDirection;
-            }
+            // Spawna esattamente alla posizione del portale di uscita
+            Vector3 newPosition = linkedPortal.transform.position;
 
-            Vector3 newPosition = linkedPortal.transform.position + (exitDirection * teleportOffset);
+            Debug.Log($"[PORTAL] Portal position: {linkedPortal.transform.position}");
+            Debug.Log($"[PORTAL] New position: {newPosition}");
 
-            // Teletrasporta il proiettile
+            // PRIMA teletrasporta
             projectile.transform.position = newPosition;
+
+            // POI blocca entrambi i portali per evitare loop
+            isTeleporting = true;
+            linkedPortal.isTeleporting = true;
 
             // Suona il suono del teletrasporto se specificato
             if (!string.IsNullOrEmpty(teleportSoundName) && SoundManager.Instance != null)
@@ -83,19 +86,13 @@ public class PortalWall : MonoBehaviour
                 SoundManager.Instance.Play(teleportSoundName);
             }
 
-            // Regola la velocità
-            if (maintainVelocity)
+            // Mantiene la STESSA direzione e velocità di entrata
+            if (maintainEntryDirection)
             {
-                // Mantiene la velocità ma nella direzione del portale di uscita
-                float speed = currentVelocity.magnitude;
-                rb.linearVelocity = exitDirection * speed;
-            }
-            else
-            {
-                // Mantiene la velocità originale (direzione e tutto)
-                rb.linearVelocity = currentVelocity;
+                rb.linearVelocity = entryVelocity; // Stessa identica velocità (direzione + magnitudine)
             }
 
+            Debug.Log($"[PORTAL] Proiettile esce con velocity: {rb.linearVelocity}");
             Debug.Log($"Proiettile teletrasportato da {gameObject.name} a {linkedPortal.gameObject.name}");
 
             // Feedback visivo
@@ -104,7 +101,7 @@ public class PortalWall : MonoBehaviour
         }
 
         // Dopo un breve delay, riabilita il teletrasporto
-        Invoke(nameof(ResetTeleport), 0.1f);
+        Invoke(nameof(ResetTeleport), 0.3f); // Aumentato da 0.1 a 0.3
     }
 
     void ResetTeleport()
@@ -146,5 +143,12 @@ public class PortalWall : MonoBehaviour
             Gizmos.DrawLine(transform.position, linkedPortal.transform.position);
             Gizmos.DrawSphere(transform.position, 0.3f);
         }
+    }
+
+    // Metodo pubblico per collegare portali dopo lo spawn
+    public void SetLinkedPortal(PortalWall portal)
+    {
+        linkedPortal = portal;
+        Debug.Log($"[PORTAL] {gameObject.name} collegato a {portal.gameObject.name}");
     }
 }

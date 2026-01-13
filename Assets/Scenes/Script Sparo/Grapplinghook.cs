@@ -35,14 +35,14 @@ public class GrapplingHook : MonoBehaviour
     {
         if (hasAttached) return;
 
-        // Controlla se pu� essere agganciato
+        // Controlla se può essere agganciato
         if (other.CompareTag("Grabbable"))
         {
-            // Controlla se gi� preso da qualcun altro
+            // Controlla se già preso da qualcun altro
             GrabbableObject grabbable = other.GetComponent<GrabbableObject>();
             if (grabbable != null && grabbable.IsGrabbed())
             {
-                Debug.Log("Oggetto gi� agganciato da qualcun altro!");
+                Debug.Log("Oggetto già agganciato da qualcun altro!");
                 grapplingSystem.OnHookMissed();
                 Destroy(gameObject);
                 return;
@@ -59,7 +59,7 @@ public class GrapplingHook : MonoBehaviour
                 rb.isKinematic = true;
             }
 
-            // Parenta al target cos� segue l'oggetto
+            // Parenta al target così segue l'oggetto
             transform.SetParent(other.transform);
 
             // Notifica sistema

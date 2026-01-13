@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 735229465965224343}
   - component: {fileID: 5783808721690205359}
   - component: {fileID: 6612053503622493207}
-  - component: {fileID: 7981899929511742753}
+  - component: {fileID: 1113058696453878801}
   m_Layer: 0
   m_Name: GrapplingHook
   m_TagString: Untagged
@@ -137,7 +137,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 120
   m_CollisionDetection: 1
---- !u!114 &7981899929511742753
+--- !u!114 &1113058696453878801
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

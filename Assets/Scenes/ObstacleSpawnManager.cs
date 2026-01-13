@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 
@@ -114,7 +114,7 @@ public class ObstacleSpawnManager : MonoBehaviour
     {
         if (currentLayoutIndex >= availableLayouts.Count)
         {
-            Debug.Log("Non ci sono pi� layout da spawnare!");
+            Debug.Log("Non ci sono più layout da spawnare!");
             yield break;
         }
 
@@ -154,7 +154,7 @@ public class ObstacleSpawnManager : MonoBehaviour
         }
         else
         {
-            // Crea indicatore di default se non c'� prefab
+            // Crea indicatore di default se non c'è prefab
             indicator = GameObject.CreatePrimitive(PrimitiveType.Cylinder);
             indicator.transform.position = position;
             indicator.transform.localScale = new Vector3(1f, 0.1f, 1f);
@@ -220,6 +220,14 @@ public class ObstacleSpawnManager : MonoBehaviour
         GameObject spawnedObstacle = Instantiate(obstacle.obstaclePrefab, obstacle.position, rotation);
         spawnedObstacles.Add(spawnedObstacle);
 
+        // Se è un portale, salvalo per il linking
+        PortalWall portalScript = spawnedObstacle.GetComponent<PortalWall>();
+        if (portalScript != null)
+        {
+            // Usa Invoke per collegare i portali dopo che tutti sono stati spawnati
+            Invoke(nameof(LinkPortals), 0.1f);
+        }
+
         // Suona il suono di spawn
         if (!string.IsNullOrEmpty(spawnCompleteSoundName) && SoundManager.Instance != null)
         {
@@ -227,6 +235,36 @@ public class ObstacleSpawnManager : MonoBehaviour
         }
 
         Debug.Log($"Ostacolo spawnato: {obstacle.obstaclePrefab.name} a {obstacle.position}");
+    }
+
+    void LinkPortals()
+    {
+        // Trova tutti i portali spawnati
+        List<PortalWall> portals = new List<PortalWall>();
+
+        foreach (GameObject obj in spawnedObstacles)
+        {
+            if (obj != null)
+            {
+                PortalWall portal = obj.GetComponent<PortalWall>();
+                if (portal != null)
+                {
+                    portals.Add(portal);
+                }
+            }
+        }
+
+        // Se ci sono esattamente 2 portali, collegali
+        if (portals.Count == 2)
+        {
+            portals[0].SetLinkedPortal(portals[1]);
+            portals[1].SetLinkedPortal(portals[0]);
+            Debug.Log($"[PORTALS] Collegati: {portals[0].name} ↔ {portals[1].name}");
+        }
+        else if (portals.Count > 2)
+        {
+            Debug.LogWarning($"[PORTALS] Trovati {portals.Count} portali, collegamento automatico funziona solo con 2!");
+        }
     }
 
     bool IsPositionValid(Vector3 position)
