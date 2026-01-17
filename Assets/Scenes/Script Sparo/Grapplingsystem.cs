@@ -32,6 +32,7 @@ public class GrapplingSystem : MonoBehaviour
 
     [Header("Visual")]
     [SerializeField] private LineRenderer rope; // Il "filo"
+    [SerializeField] private Material ropeMaterial; // Material della rope (opzionale)
     [SerializeField] private Color ropeColor = Color.cyan;
     [SerializeField] private float ropeWidth = 0.1f;
 
@@ -68,6 +69,13 @@ public class GrapplingSystem : MonoBehaviour
         rope.startColor = ropeColor;
         rope.endColor = ropeColor;
         rope.positionCount = 2;
+
+        // Assegna material se specificato
+        if (ropeMaterial != null)
+        {
+            rope.material = ropeMaterial;
+            Debug.Log($"[GRAPPLING] Material assegnato alla rope: {ropeMaterial.name}");
+        }
 
         // Inizializza angolo mira in base al player
         currentAimAngle = (gamepadIndex == 0) ? 0f : 180f;

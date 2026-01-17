@@ -753,6 +753,9 @@ MonoBehaviour:
   ammoOnHit: 1
   deathSoundName: morte
   respawnSoundName: 
+  shakeOnDeath: 1
+  shakeDuration: 0.4
+  shakeIntensity: 0.8
 --- !u!114 &5370008980773233997
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -809,6 +812,11 @@ MonoBehaviour:
   limitCannonAngle: 1
   minCannonAngle: -80
   maxCannonAngle: 80
+  useCannonStretch: 1
+  cannonBarrel: {fileID: 0}
+  maxStretchScale: 1.5
+  stretchSpeed: 5
+  snapBackSpeed: 15
   maxAmmo: 5
   startingAmmo: 1
   infiniteAmmo: 1
@@ -817,6 +825,9 @@ MonoBehaviour:
   shootSoundName: Sparo
   chargingSoundName: carica proiettile
   chargeCompleteSoundName: carica max
+  shakeOnShoot: 1
+  shootShakeDuration: 0.1
+  shootShakeIntensity: 0.15
 --- !u!114 &6130718575384613094
 MonoBehaviour:
   m_ObjectHideFlags: 0

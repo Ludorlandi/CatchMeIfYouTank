@@ -22,6 +22,11 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private string deathSoundName = ""; // Suono quando muore
     [SerializeField] private string respawnSoundName = ""; // Suono quando respawna
 
+    [Header("Screen Shake on Death")]
+    [SerializeField] private bool shakeOnDeath = true; // Shake quando muore
+    [SerializeField] private float shakeDuration = 0.4f; // Durata shake
+    [SerializeField] private float shakeIntensity = 0.8f; // Intensità shake
+
     private bool isDead = false;
     private bool isInvincible = false; // Stato invincibilità
 
@@ -106,6 +111,29 @@ public class PlayerHealth : MonoBehaviour
         }
 
         isDead = true;
+
+        // SCREEN SHAKE!
+        if (shakeOnDeath)
+        {
+            // Prova a trovare CameraShake
+            CameraShake shaker = CameraShake.Instance;
+
+            if (shaker == null)
+            {
+                Debug.LogWarning("[HEALTH] CameraShake.Instance è null! Cerco con FindObjectOfType...");
+                shaker = FindObjectOfType<CameraShake>();
+            }
+
+            if (shaker != null)
+            {
+                Debug.Log($"[HEALTH] Chiamando CameraShake! Duration: {shakeDuration}, Intensity: {shakeIntensity}");
+                shaker.Shake(shakeDuration, shakeIntensity);
+            }
+            else
+            {
+                Debug.LogError("[HEALTH] CameraShake NON TROVATO! Aggiungi il componente CameraShake alla Main Camera!");
+            }
+        }
 
         // Suona il suono della morte PRIMA di disabilitare (così non viene fermato)
         Debug.Log($"[DEATH SOUND] deathSoundName = '{deathSoundName}'");

@@ -26,6 +26,13 @@ public class PlayerShootingDirect : MonoBehaviour
     [SerializeField] private float minCannonAngle = -90f; // Angolo minimo (sarà invertito per P2)
     [SerializeField] private float maxCannonAngle = 90f; // Angolo massimo (sarà invertito per P2)
 
+    [Header("Cannon Stretch Effect (Cartoon)")]
+    [SerializeField] private bool useCannonStretch = true; // Usa effetto stretch invece di barra
+    [SerializeField] private Transform cannonBarrel; // La canna del cannone (si allunga)
+    [SerializeField] private float maxStretchScale = 1.5f; // Scala massima alla carica completa (1.5 = 150%)
+    [SerializeField] private float stretchSpeed = 5f; // Velocità dell'effetto stretch
+    [SerializeField] private float snapBackSpeed = 15f; // Velocità ritorno normale dopo sparo
+
     [Header("Ammo Settings")]
     [SerializeField] private int maxAmmo = 10;
     [SerializeField] private int startingAmmo = 5;
@@ -40,6 +47,11 @@ public class PlayerShootingDirect : MonoBehaviour
     [SerializeField] private string chargingSoundName = ""; // Suono loop mentre carica
     [SerializeField] private string chargeCompleteSoundName = ""; // Suono quando carica è completa
 
+    [Header("Screen Shake on Shoot")]
+    [SerializeField] private bool shakeOnShoot = true; // Mini shake quando spara
+    [SerializeField] private float shootShakeDuration = 0.1f; // Durata shake sparo
+    [SerializeField] private float shootShakeIntensity = 0.15f; // Intensità shake sparo (leggero!)
+
     private int currentAmmo;
     private bool isCharging = false;
     private float chargeStartTime;
@@ -48,6 +60,11 @@ public class PlayerShootingDirect : MonoBehaviour
     private bool hasPlayedChargeComplete = false; // Flag per suonare charge complete una volta sola
     private float currentCannonAngle = 0f; // Angolo corrente del cannone (per rotazione incrementale)
 
+    // Cannon stretch
+    private Vector3 originalBarrelScale;
+    private float currentStretchScale = 1f;
+    private bool isSnappingBack = false;
+
     // Proprietà pubblica per sapere se sta caricando
     public bool IsCharging => isCharging;
 
@@ -55,6 +72,12 @@ public class PlayerShootingDirect : MonoBehaviour
     {
         currentAmmo = startingAmmo;
         UpdateAmmoUI();
+
+        // Salva scala originale della canna per lo stretch
+        if (cannonBarrel != null)
+        {
+            originalBarrelScale = cannonBarrel.localScale;
+        }
 
         if (chargeBar != null)
         {
@@ -89,6 +112,9 @@ public class PlayerShootingDirect : MonoBehaviour
 
         UpdateCannonRotation();
 
+        // Aggiorna stretch effect del cannone
+        UpdateCannonStretch();
+
         // Gestione shooting
         if (fireInput > 0.1f && !isCharging)
         {
@@ -106,6 +132,61 @@ public class PlayerShootingDirect : MonoBehaviour
                 UpdateChargeUI();
             }
         }
+    }
+
+    void UpdateCannonStretch()
+    {
+        if (!useCannonStretch || cannonBarrel == null) return;
+
+        float targetStretch = 1f; // Default: scala normale
+
+        if (isCharging)
+        {
+            // Stretch in base alla carica
+            float chargeTime = Mathf.Min(Time.time - chargeStartTime, maxChargeTime);
+            float chargePercent = chargeTime / maxChargeTime;
+
+            // Scala da 1.0 a maxStretchScale (es: 1.0 → 1.5)
+            targetStretch = Mathf.Lerp(1f, maxStretchScale, chargePercent);
+
+            // Interpola smooth verso il target
+            currentStretchScale = Mathf.Lerp(currentStretchScale, targetStretch, stretchSpeed * Time.deltaTime);
+
+            isSnappingBack = false;
+        }
+        else if (isSnappingBack)
+        {
+            // SNAP BACK veloce dopo lo sparo
+            currentStretchScale = Mathf.Lerp(currentStretchScale, 1f, snapBackSpeed * Time.deltaTime);
+
+            // Quando è tornato quasi normale, ferma lo snap back
+            if (Mathf.Abs(currentStretchScale - 1f) < 0.01f)
+            {
+                currentStretchScale = 1f;
+                isSnappingBack = false;
+            }
+        }
+        else
+        {
+            // Ritorna gradualmente a normale se non sta caricando né snappando
+            currentStretchScale = Mathf.Lerp(currentStretchScale, 1f, stretchSpeed * Time.deltaTime);
+        }
+
+        // Applica lo stretch solo sull'asse della lunghezza del cannone
+        // SQUASH AND STRETCH: allunga su un asse, restringe sugli altri
+        // Assumendo che la canna si allunghi sull'asse X (locale)
+        Vector3 stretchedScale = originalBarrelScale;
+
+        // Stretch sull'asse principale (lunghezza)
+        stretchedScale.x *= currentStretchScale;
+
+        // SQUASH sugli assi perpendicolari (larghezza/altezza)
+        // Formula: quando si allunga di 1.5x, si restringe di ~0.816x (conservazione volume)
+        float squashScale = 1f / Mathf.Sqrt(currentStretchScale);
+        stretchedScale.y *= squashScale; // Restringe altezza
+        stretchedScale.z *= squashScale; // Restringe profondità
+
+        cannonBarrel.localScale = stretchedScale;
     }
 
     void UpdateCannonRotation()
@@ -242,6 +323,9 @@ public class PlayerShootingDirect : MonoBehaviour
         float chargePercent = chargeTime / maxChargeTime;
         float projectileSpeed = Mathf.Lerp(minProjectileSpeed, maxProjectileSpeed, chargePercent);
 
+        // SNAP BACK! Il cannone torna normale velocemente
+        isSnappingBack = true;
+
         if (projectilePrefab != null && firePoint != null)
         {
             GameObject projectile = Instantiate(projectilePrefab, firePoint.position, Quaternion.identity);
@@ -263,6 +347,20 @@ public class PlayerShootingDirect : MonoBehaviour
             if (!string.IsNullOrEmpty(shootSoundName) && SoundManager.Instance != null)
             {
                 SoundManager.Instance.PlayWithRandomPitch(shootSoundName, 0.95f, 1.05f);
+            }
+
+            // MINI SCREEN SHAKE quando spara!
+            if (shakeOnShoot)
+            {
+                CameraShake shaker = CameraShake.Instance;
+                if (shaker == null) shaker = FindObjectOfType<CameraShake>();
+
+                if (shaker != null)
+                {
+                    // Shake più intenso se carica è alta
+                    float shakeMultiplier = 1f + (chargePercent * 0.5f); // Da 1.0x a 1.5x
+                    shaker.Shake(shootShakeDuration, shootShakeIntensity * shakeMultiplier);
+                }
             }
         }
 
