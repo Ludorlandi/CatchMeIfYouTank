@@ -52,6 +52,10 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: ca84e0de77b7ef441bb618adb8a73189, type: 2}
+    - target: {fileID: -5717686512458688699, guid: 16835521e69387d46a27c5cd06f992f6, type: 3}
+      propertyPath: m_Name
+      value: Cingolato sinistro
+      objectReference: {fileID: 0}
     - target: {fileID: -5146166222726044461, guid: 16835521e69387d46a27c5cd06f992f6, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
@@ -64,14 +68,26 @@ PrefabInstance:
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: ca84e0de77b7ef441bb618adb8a73189, type: 2}
+    - target: {fileID: 860756930680989557, guid: 16835521e69387d46a27c5cd06f992f6, type: 3}
+      propertyPath: m_Name
+      value: Torretta
+      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 16835521e69387d46a27c5cd06f992f6, type: 3}
       propertyPath: m_Name
-      value: Player_Tank _GO-07 v01
+      value: Tank definitivo
       objectReference: {fileID: 0}
     - target: {fileID: 1188091729601916808, guid: 16835521e69387d46a27c5cd06f992f6, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
       objectReference: {fileID: 2100000, guid: ca84e0de77b7ef441bb618adb8a73189, type: 2}
+    - target: {fileID: 2855161998923236282, guid: 16835521e69387d46a27c5cd06f992f6, type: 3}
+      propertyPath: m_Name
+      value: Corpo (parte ferma)
+      objectReference: {fileID: 0}
+    - target: {fileID: 6020047382415824822, guid: 16835521e69387d46a27c5cd06f992f6, type: 3}
+      propertyPath: m_Name
+      value: Cingolato destro
+      objectReference: {fileID: 0}
     - target: {fileID: 7803544664820125260, guid: 16835521e69387d46a27c5cd06f992f6, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 

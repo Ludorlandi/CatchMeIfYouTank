@@ -7,6 +7,9 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private float respawnDelay = 2f;
     [SerializeField] private Vector3 respawnPosition;
 
+    [Header("Renderer Settings")]
+    [SerializeField] private GameObject[] objectsToKeepDisabled; // Oggetti che rimangono disabilitati (es: cubo, cannone vecchio)
+
     [Header("Invincibility Settings")]
     [SerializeField] private bool invincibleOnRespawn = true; // Invincibile dopo respawn
     [SerializeField] private float invincibilityDuration = 3f; // Durata invincibilità (secondi)
@@ -18,6 +21,11 @@ public class PlayerHealth : MonoBehaviour
     [Header("Audio (Opzionale)")]
     [SerializeField] private string deathSoundName = ""; // Suono quando muore
     [SerializeField] private string respawnSoundName = ""; // Suono quando respawna
+
+    [Header("Screen Shake on Death")]
+    [SerializeField] private bool shakeOnDeath = true; // Shake quando muore
+    [SerializeField] private float shakeDuration = 0.4f; // Durata shake
+    [SerializeField] private float shakeIntensity = 0.8f; // Intensità shake
 
     private bool isDead = false;
     private bool isInvincible = false; // Stato invincibilità
@@ -103,6 +111,29 @@ public class PlayerHealth : MonoBehaviour
         }
 
         isDead = true;
+
+        // SCREEN SHAKE!
+        if (shakeOnDeath)
+        {
+            // Prova a trovare CameraShake
+            CameraShake shaker = CameraShake.Instance;
+
+            if (shaker == null)
+            {
+                Debug.LogWarning("[HEALTH] CameraShake.Instance è null! Cerco con FindObjectOfType...");
+                shaker = FindObjectOfType<CameraShake>();
+            }
+
+            if (shaker != null)
+            {
+                Debug.Log($"[HEALTH] Chiamando CameraShake! Duration: {shakeDuration}, Intensity: {shakeIntensity}");
+                shaker.Shake(shakeDuration, shakeIntensity);
+            }
+            else
+            {
+                Debug.LogError("[HEALTH] CameraShake NON TROVATO! Aggiungi il componente CameraShake alla Main Camera!");
+            }
+        }
 
         // Suona il suono della morte PRIMA di disabilitare (così non viene fermato)
         Debug.Log($"[DEATH SOUND] deathSoundName = '{deathSoundName}'");
@@ -212,11 +243,29 @@ public class PlayerHealth : MonoBehaviour
         GrapplingSystem grappling = GetComponent<GrapplingSystem>();
         if (grappling != null) grappling.enabled = true;
 
-        // Rimostra il player
-        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+        // Riabilita tutti i renderer
+        Renderer[] renderers = GetComponentsInChildren<Renderer>(true);
         foreach (Renderer rend in renderers)
         {
             rend.enabled = true;
+        }
+
+        // POI disabilita esplicitamente solo i MeshRenderer degli oggetti da escludere
+        if (objectsToKeepDisabled != null)
+        {
+            foreach (GameObject obj in objectsToKeepDisabled)
+            {
+                if (obj != null)
+                {
+                    // Disabilita SOLO il MeshRenderer, non tutto il GameObject
+                    MeshRenderer meshRend = obj.GetComponent<MeshRenderer>();
+                    if (meshRend != null)
+                    {
+                        meshRend.enabled = false;
+                        Debug.Log($"[HEALTH] MeshRenderer disabilitato: {obj.name}");
+                    }
+                }
+            }
         }
 
         // Riabilita le collisioni
@@ -225,6 +274,20 @@ public class PlayerHealth : MonoBehaviour
         {
             col.enabled = true;
         }
+    }
+
+    // Helper per controllare se un GameObject è figlio di un altro
+    bool IsChildOf(GameObject child, GameObject parent)
+    {
+        if (child == parent) return true;
+
+        Transform current = child.transform;
+        while (current != null)
+        {
+            if (current.gameObject == parent) return true;
+            current = current.parent;
+        }
+        return false;
     }
 
     // Metodo pubblico per impostare la posizione di respawn
@@ -241,16 +304,46 @@ public class PlayerHealth : MonoBehaviour
 
         Debug.Log($"{gameObject.name} è INVINCIBILE per {invincibilityDuration} secondi!");
 
-        // Ottieni tutti i renderer
+        // Ottieni tutti i renderer MA escludi quelli da mantenere disabilitati
         Renderer[] renderers = GetComponentsInChildren<Renderer>();
+
+        // Crea lista di renderer da far lampeggiare (esclusi quelli da mantenere disabilitati)
+        System.Collections.Generic.List<Renderer> flickerRenderers = new System.Collections.Generic.List<Renderer>();
+
+        foreach (Renderer rend in renderers)
+        {
+            bool shouldExclude = false;
+
+            // Controlla se questo renderer appartiene a un oggetto da escludere
+            if (objectsToKeepDisabled != null)
+            {
+                foreach (GameObject excludedObj in objectsToKeepDisabled)
+                {
+                    if (excludedObj != null)
+                    {
+                        Renderer excludedRenderer = excludedObj.GetComponent<Renderer>();
+                        if (excludedRenderer == rend)
+                        {
+                            shouldExclude = true;
+                            break;
+                        }
+                    }
+                }
+            }
+
+            if (!shouldExclude)
+            {
+                flickerRenderers.Add(rend);
+            }
+        }
 
         // Lampeggia per tutta la durata dell'invincibilità
         while (elapsedTime < invincibilityDuration)
         {
-            // Alterna visibilità
+            // Alterna visibilità SOLO per i renderer non esclusi
             bool visible = (Mathf.FloorToInt(elapsedTime / flickerSpeed) % 2 == 0);
 
-            foreach (Renderer rend in renderers)
+            foreach (Renderer rend in flickerRenderers)
             {
                 rend.enabled = visible;
             }
@@ -259,10 +352,26 @@ public class PlayerHealth : MonoBehaviour
             elapsedTime += flickerSpeed;
         }
 
-        // Assicurati che sia visibile alla fine
-        foreach (Renderer rend in renderers)
+        // Assicurati che siano tutti visibili alla fine (tranne quelli esclusi)
+        foreach (Renderer rend in flickerRenderers)
         {
             rend.enabled = true;
+        }
+
+        // Mantieni disabilitati gli oggetti esclusi
+        if (objectsToKeepDisabled != null)
+        {
+            foreach (GameObject obj in objectsToKeepDisabled)
+            {
+                if (obj != null)
+                {
+                    MeshRenderer meshRend = obj.GetComponent<MeshRenderer>();
+                    if (meshRend != null)
+                    {
+                        meshRend.enabled = false;
+                    }
+                }
+            }
         }
 
         isInvincible = false;
