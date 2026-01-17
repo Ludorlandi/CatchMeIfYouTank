@@ -16,9 +16,13 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private Transform player2LivesContainer;
 
     [Header("Win Panel")]
-    [SerializeField] private GameObject winPanel; // Panel che mostra chi ha vinto
-    [SerializeField] private Text winnerText; // Testo "Player X Wins!"
-    [SerializeField] private Text restartText; // Testo "Premi R per ricominciare"
+    [SerializeField] private GameObject winPanel; // Panel che mostra l'immagine di vittoria
+    [SerializeField] private Image victoryImage; // Image component che cambia sprite
+    [SerializeField] private Sprite player1VictorySprite; // Immagine quando vince Player 1
+    [SerializeField] private Sprite player2VictorySprite; // Immagine quando vince Player 2
+
+    [Header("Game Objects to Disable on Victory")]
+    [SerializeField] private GameObject[] objectsToDisableOnVictory; // Player, spawner, etc
 
     [Header("Audio (Opzionale)")]
     [SerializeField] private string victorySoundName = ""; // Suono quando qualcuno vince
@@ -137,7 +141,13 @@ public class ScoreManager : MonoBehaviour
     void EndGame(string winner)
     {
         gameEnded = true;
-        Debug.Log($"{winner} WINS!");
+        Debug.Log($"{winner} WINS! Gioco bloccato.");
+
+        // BLOCCA il gioco
+        Time.timeScale = 0f; // Ferma completamente il tempo di gioco
+
+        // Disabilita tutti gli oggetti di gioco (player, spawner, etc)
+        DisableGameplay();
 
         // Suona il suono della vittoria se specificato
         if (!string.IsNullOrEmpty(victorySoundName) && SoundManager.Instance != null)
@@ -145,24 +155,72 @@ public class ScoreManager : MonoBehaviour
             SoundManager.Instance.Play(victorySoundName);
         }
 
-        // Mostra pannello vittoria
+        // Mostra pannello con immagine di vittoria
         if (winPanel != null)
         {
             winPanel.SetActive(true);
         }
 
-        if (winnerText != null)
+        // Cambia l'immagine in base al vincitore
+        if (victoryImage != null)
         {
-            winnerText.text = $"{winner} WINS!";
+            if (winner == "Player 1" && player1VictorySprite != null)
+            {
+                victoryImage.sprite = player1VictorySprite;
+                Debug.Log("[VICTORY] Mostrata immagine vittoria Player 1");
+            }
+            else if (winner == "Player 2" && player2VictorySprite != null)
+            {
+                victoryImage.sprite = player2VictorySprite;
+                Debug.Log("[VICTORY] Mostrata immagine vittoria Player 2");
+            }
         }
 
-        if (restartText != null)
-        {
-            restartText.text = "Premi R per ricominciare";
-        }
-
-        // NON riavvia automaticamente - aspetta input
         Debug.Log("Premi R per ricominciare");
+    }
+
+    void DisableGameplay()
+    {
+        // Disabilita player - cerca con entrambe le varianti del tag
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player 1");
+        foreach (GameObject player in players)
+        {
+            DisablePlayerComponents(player);
+        }
+
+        players = GameObject.FindGameObjectsWithTag("Player 2");
+        foreach (GameObject player in players)
+        {
+            DisablePlayerComponents(player);
+        }
+
+        // Disabilita oggetti specifici (spawner, etc)
+        if (objectsToDisableOnVictory != null)
+        {
+            foreach (GameObject obj in objectsToDisableOnVictory)
+            {
+                if (obj != null)
+                {
+                    obj.SetActive(false);
+                    Debug.Log($"[VICTORY] Disabilitato: {obj.name}");
+                }
+            }
+        }
+    }
+
+    void DisablePlayerComponents(GameObject player)
+    {
+        // Disabilita movimento e sparo
+        PlayerMovementDirect movement = player.GetComponent<PlayerMovementDirect>();
+        if (movement != null) movement.enabled = false;
+
+        PlayerShootingDirect shooting = player.GetComponent<PlayerShootingDirect>();
+        if (shooting != null) shooting.enabled = false;
+
+        GrapplingSystem grappling = player.GetComponent<GrapplingSystem>();
+        if (grappling != null) grappling.enabled = false;
+
+        Debug.Log($"[VICTORY] Player disabilitato: {player.name}");
     }
 
     void Update()
@@ -176,6 +234,9 @@ public class ScoreManager : MonoBehaviour
 
     void RestartGame()
     {
+        // Riabilita il tempo
+        Time.timeScale = 1f;
+
         // Ricarica la scena
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }

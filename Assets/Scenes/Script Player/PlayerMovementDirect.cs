@@ -6,6 +6,11 @@ public class PlayerMovementDirect : MonoBehaviour
     [Header("Controller Settings")]
     [SerializeField] private int gamepadIndex = 0; // 0 per Player 1, 1 per Player 2
 
+    [Header("Tank Tracks (Cingoli)")]
+    [SerializeField] private Transform tankBody; // Corpo del tank che ruota (con i cingoli attaccati)
+    [SerializeField] private float bodyRotationSpeed = 5f; // Velocità rotazione corpo
+    [SerializeField] private Vector3 modelRotationOffset = Vector3.zero; // Offset per correggere orientamento modello (es: 0, 90, 0)
+
     [Header("Movement Settings")]
     [SerializeField] private float maxSpeed = 10f;
     [SerializeField] private float acceleration = 50f;
@@ -30,6 +35,7 @@ public class PlayerMovementDirect : MonoBehaviour
     private Rigidbody rb;
     private Vector3 currentVelocity = Vector3.zero;
     private Quaternion initialRotation;
+    private Quaternion tankBodyInitialRotation; // Rotazione iniziale del corpo tank
     private PlayerShootingDirect shootingScript;
     private float currentSpeedMultiplier = 1f; // Inizia a velocità normale
 
@@ -42,8 +48,14 @@ public class PlayerMovementDirect : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         shootingScript = GetComponent<PlayerShootingDirect>();
 
-        // Salva la rotazione iniziale (es: Cannon X=-90)
+        // Salva la rotazione iniziale del player
         initialRotation = transform.rotation;
+
+        // Salva la rotazione iniziale del corpo del tank (importante!)
+        if (tankBody != null)
+        {
+            tankBodyInitialRotation = tankBody.localRotation;
+        }
 
         // Configura il Rigidbody
         rb.isKinematic = false;
@@ -121,6 +133,9 @@ public class PlayerMovementDirect : MonoBehaviour
         rb.linearVelocity = currentVelocity;
         rb.angularVelocity = Vector3.zero;
 
+        // Ruota i cingoli verso la direzione del movimento
+        UpdateTrackRotation(targetDirection);
+
         // Gestisci suoni movimento
         HandleMovementSounds();
 
@@ -141,6 +156,46 @@ public class PlayerMovementDirect : MonoBehaviour
 
             rb.position = pos;
         }
+    }
+
+    void UpdateTrackRotation(Vector3 movementDirection)
+    {
+        if (tankBody == null) return;
+        if (movementDirection.magnitude < 0.1f) return; // Non ruotare se fermo
+
+        // Calcola angolo target basato sulla direzione del movimento
+        float targetAngle;
+        Quaternion directionRotation;
+
+        if (moveOnXYPlane)
+        {
+            // Piano XY (side view): direzione su X e Y
+            targetAngle = Mathf.Atan2(movementDirection.y, movementDirection.x) * Mathf.Rad2Deg;
+            // Rotazione sull'asse Z per giochi 2D side-view
+            directionRotation = Quaternion.Euler(0f, 0f, targetAngle);
+        }
+        else
+        {
+            // Piano XZ (top down): direzione su X e Z
+            targetAngle = Mathf.Atan2(movementDirection.x, movementDirection.z) * Mathf.Rad2Deg;
+            // Rotazione sull'asse Y (verticale) per giochi top-down
+            directionRotation = Quaternion.Euler(0f, targetAngle, 0f);
+        }
+
+        // Applica l'offset del modello
+        Quaternion offsetRotation = Quaternion.Euler(modelRotationOffset);
+        directionRotation = directionRotation * offsetRotation;
+
+        // IMPORTANTE: Applica la rotazione RELATIVA alla rotazione iniziale
+        // Così manteniamo l'orientamento originale del modello
+        Quaternion targetRotation = directionRotation * tankBodyInitialRotation;
+
+        // Interpola smooth verso la rotazione target
+        tankBody.localRotation = Quaternion.Slerp(
+            tankBody.localRotation,
+            targetRotation,
+            bodyRotationSpeed * Time.fixedDeltaTime
+        );
     }
 
     void HandleMovementSounds()
