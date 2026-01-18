@@ -853,6 +853,7 @@ MonoBehaviour:
   minDistance: 0.5
   maxHoldDistance: 30
   rope: {fileID: 0}
+  ropeMaterial: {fileID: 0}
   ropeColor: {r: 0, g: 1, b: 1, a: 1}
   ropeWidth: 0.1
   shootSoundName: 
