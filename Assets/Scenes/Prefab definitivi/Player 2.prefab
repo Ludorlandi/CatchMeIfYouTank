@@ -34,7 +34,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 8.5, y: 0.75, z: -0.1}
-  m_LocalScale: {x: 0.8748, y: 0.82, z: 0.3037}
+  m_LocalScale: {x: 0.8748, y: 0.82, z: 0.7}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 8111406078365500929}
@@ -166,6 +166,9 @@ MonoBehaviour:
   ammoOnHit: 1
   deathSoundName: morte
   respawnSoundName: 
+  shakeOnDeath: 1
+  shakeDuration: 0.4
+  shakeIntensity: 0.8
 --- !u!114 &9119311814150077359
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -222,6 +225,11 @@ MonoBehaviour:
   limitCannonAngle: 1
   minCannonAngle: 80
   maxCannonAngle: 260
+  useCannonStretch: 1
+  cannonBarrel: {fileID: 0}
+  maxStretchScale: 1.5
+  stretchSpeed: 5
+  snapBackSpeed: 15
   maxAmmo: 5
   startingAmmo: 1
   infiniteAmmo: 1
@@ -230,6 +238,9 @@ MonoBehaviour:
   shootSoundName: Sparo
   chargingSoundName: carica proiettile
   chargeCompleteSoundName: carica max
+  shakeOnShoot: 1
+  shootShakeDuration: 0.1
+  shootShakeIntensity: 0.15
 --- !u!114 &1592521827279557616
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -255,6 +266,7 @@ MonoBehaviour:
   minDistance: 0.5
   maxHoldDistance: 30
   rope: {fileID: 0}
+  ropeMaterial: {fileID: 0}
   ropeColor: {r: 1, g: 0.45315844, b: 0, a: 1}
   ropeWidth: 0.1
   shootSoundName: 
@@ -361,7 +373,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9b85c0d79024a6644adedde651381b19, type: 2}
+  - {fileID: 2100000, guid: 1877c3a4d09cba6429f7880af1d4a789, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -447,7 +459,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: ca84e0de77b7ef441bb618adb8a73189, type: 2}
+  - {fileID: 2100000, guid: 8564da81ea22807418ae9330fa7acf99, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -534,7 +546,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 9b85c0d79024a6644adedde651381b19, type: 2}
+  - {fileID: 2100000, guid: 1877c3a4d09cba6429f7880af1d4a789, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -946,7 +958,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b675ba106c868db43ae980802be599c8, type: 2}
+  - {fileID: 2100000, guid: 8564da81ea22807418ae9330fa7acf99, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1032,7 +1044,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b675ba106c868db43ae980802be599c8, type: 2}
+  - {fileID: 2100000, guid: 8564da81ea22807418ae9330fa7acf99, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1226,7 +1238,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: b675ba106c868db43ae980802be599c8, type: 2}
+  - {fileID: 2100000, guid: 8564da81ea22807418ae9330fa7acf99, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
