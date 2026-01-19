@@ -94,7 +94,7 @@ public class ScoreManager : MonoBehaviour
 
             // IMPORTANTE: Inverti la lista di Player 2 per matchare l'ordine visivo
             // Se usi Reverse Arrangement nel layout, le icone sono al contrario visivamente
-            player2LifeIcons.Reverse();
+            // player1LifeIcons.Reverse();
             Debug.Log("[SCORE] Lista icone Player 2 invertita per matchare UI");
         }
     }
