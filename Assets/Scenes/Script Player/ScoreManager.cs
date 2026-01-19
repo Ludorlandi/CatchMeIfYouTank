@@ -1,4 +1,4 @@
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.Collections.Generic;
@@ -6,7 +6,8 @@ using System.Collections.Generic;
 public class ScoreManager : MonoBehaviour
 {
     [Header("Lives Settings")]
-    [SerializeField] private int startingLives = 5;
+    [SerializeField] private int startingLives = 0; // Parti con 0 vite
+    [SerializeField] private int livesToWin = 5; // Vite necessarie per vincere
 
     [Header("Player 1 Lives UI")]
     [SerializeField] private Transform player1LivesContainer; // Parent che contiene le icone vite
@@ -70,24 +71,31 @@ public class ScoreManager : MonoBehaviour
 
     void CreateLifeIcons()
     {
-        // Crea le icone per Player 1
+        // Crea le icone per Player 1 (tutte disabilitate all'inizio - 0 vite)
         if (player1LivesContainer != null && lifeIconPrefab != null)
         {
-            for (int i = 0; i < startingLives; i++)
+            for (int i = 0; i < livesToWin; i++)
             {
                 GameObject lifeIcon = Instantiate(lifeIconPrefab, player1LivesContainer);
+                lifeIcon.SetActive(false); // Parte disabilitata (0 vite)
                 player1LifeIcons.Add(lifeIcon);
             }
         }
 
-        // Crea le icone per Player 2
+        // Crea le icone per Player 2 (tutte disabilitate all'inizio - 0 vite)
         if (player2LivesContainer != null && lifeIconPrefab != null)
         {
-            for (int i = 0; i < startingLives; i++)
+            for (int i = 0; i < livesToWin; i++)
             {
                 GameObject lifeIcon = Instantiate(lifeIconPrefab, player2LivesContainer);
+                lifeIcon.SetActive(false); // Parte disabilitata (0 vite)
                 player2LifeIcons.Add(lifeIcon);
             }
+
+            // IMPORTANTE: Inverti la lista di Player 2 per matchare l'ordine visivo
+            // Se usi Reverse Arrangement nel layout, le icone sono al contrario visivamente
+            player2LifeIcons.Reverse();
+            Debug.Log("[SCORE] Lista icone Player 2 invertita per matchare UI");
         }
     }
 
@@ -96,25 +104,53 @@ public class ScoreManager : MonoBehaviour
     {
         if (gameEnded) return;
 
-        Debug.Log($"Death: Victim={victimTag}, Killer={killerTag}");
+        Debug.Log($"[SCORE] Death: Victim={victimTag}, Killer={killerTag}");
+        Debug.Log($"[SCORE] Vite PRIMA: P1={player1Lives}, P2={player2Lives}");
 
-        // Determina chi perde una vita
-        if (victimTag == "Player1" || victimTag == "Player 1")
+        // IMPORTANTE: Se vittima == killer (autocolpimento), nessuno guadagna vite!
+        if (victimTag == killerTag)
         {
-            // Player 1 perde una vita
-            player1Lives--;
-            RemoveLifeIcon(player1LifeIcons);
-            Debug.Log($"Player 1 perde una vita! Vite rimaste: {player1Lives}");
-        }
-        else if (victimTag == "Player2" || victimTag == "Player 2")
-        {
-            // Player 2 perde una vita
-            player2Lives--;
-            RemoveLifeIcon(player2LifeIcons);
-            Debug.Log($"Player 2 perde una vita! Vite rimaste: {player2Lives}");
+            Debug.LogWarning($"[SCORE] {victimTag} si è autocolpito! Nessuno guadagna vita.");
+            return;
         }
 
+        // Il KILLER guadagna una vita (non la vittima che perde!)
+        if (killerTag == "Player1" || killerTag == "Player 1")
+        {
+            // Player 1 ha ucciso → guadagna +1 vita
+            player1Lives++;
+            Debug.Log($"[SCORE] Player 1 guadagna vita! Totale: {player1Lives}/{livesToWin}");
+            AddLifeIcon(player1LifeIcons);
+        }
+        else if (killerTag == "Player2" || killerTag == "Player 2")
+        {
+            // Player 2 ha ucciso → guadagna +1 vita
+            player2Lives++;
+            Debug.Log($"[SCORE] Player 2 guadagna vita! Totale: {player2Lives}/{livesToWin}");
+            AddLifeIcon(player2LifeIcons); // Usa lista già invertita!
+        }
+        else
+        {
+            Debug.LogWarning($"[SCORE] Killer tag sconosciuto: '{killerTag}'");
+        }
+
+        Debug.Log($"[SCORE] Vite DOPO: P1={player1Lives}, P2={player2Lives}");
         CheckForWinner();
+    }
+
+    void AddLifeIcon(List<GameObject> lifeIcons)
+    {
+        // Attiva la prossima icona disabilitata (sempre da index 0 in su)
+        // Per P2, la lista è già stata invertita quindi 0 = destra visivamente
+        for (int i = 0; i < lifeIcons.Count; i++)
+        {
+            if (!lifeIcons[i].activeSelf)
+            {
+                lifeIcons[i].SetActive(true);
+                Debug.Log($"Icona vita index {i} attivata!");
+                return;
+            }
+        }
     }
 
     void RemoveLifeIcon(List<GameObject> lifeIcons)
@@ -132,13 +168,22 @@ public class ScoreManager : MonoBehaviour
 
     void CheckForWinner()
     {
-        if (player1Lives <= 0)
+        Debug.Log($"[SCORE] CheckForWinner: P1={player1Lives}/{livesToWin}, P2={player2Lives}/{livesToWin}");
+
+        // Vince chi raggiunge per primo livesToWin (es: 5 vite)
+        if (player1Lives >= livesToWin)
         {
+            Debug.Log($"[SCORE] Player 1 HA VINTO! ({player1Lives} >= {livesToWin})");
+            EndGame("Player 1");
+        }
+        else if (player2Lives >= livesToWin)
+        {
+            Debug.Log($"[SCORE] Player 2 HA VINTO! ({player2Lives} >= {livesToWin})");
             EndGame("Player 2");
         }
-        else if (player2Lives <= 0)
+        else
         {
-            EndGame("Player 1");
+            Debug.Log($"[SCORE] Nessun vincitore ancora.");
         }
     }
 
@@ -220,7 +265,7 @@ public class ScoreManager : MonoBehaviour
 
     void Update()
     {
-        // Se il gioco � finito, ascolta il tasto R
+        // Se il gioco è finito, ascolta il tasto R
         if (gameEnded && Input.GetKeyDown(KeyCode.R))
         {
             RestartGame();
@@ -249,19 +294,19 @@ public class ScoreManager : MonoBehaviour
 
     public void ResetLives()
     {
-        player1Lives = startingLives;
-        player2Lives = startingLives;
+        player1Lives = startingLives; // 0
+        player2Lives = startingLives; // 0
         gameEnded = false;
 
-        // Riattiva tutte le icone
+        // Disabilita tutte le icone (parti con 0 vite)
         foreach (GameObject icon in player1LifeIcons)
         {
-            icon.SetActive(true);
+            icon.SetActive(false);
         }
 
         foreach (GameObject icon in player2LifeIcons)
         {
-            icon.SetActive(true);
+            icon.SetActive(false);
         }
 
         // Nascondi entrambi i pannelli

@@ -101,13 +101,12 @@ public class PlayerHealth : MonoBehaviour
             }
         }
 
-        // Notifica lo ScoreManager per OGNI vita persa
+        // MORTE - Notifica lo ScoreManager UNA SOLA VOLTA
+        // Nel nuovo sistema: killer guadagna +1 vita
         if (ScoreManager.Instance != null)
         {
-            for (int i = 0; i < damage; i++)
-            {
-                ScoreManager.Instance.OnPlayerDeath(gameObject.tag, killerTag);
-            }
+            ScoreManager.Instance.OnPlayerDeath(gameObject.tag, killerTag);
+            Debug.Log($"[DEATH] {gameObject.name} ucciso da {killerTag}");
         }
 
         isDead = true;

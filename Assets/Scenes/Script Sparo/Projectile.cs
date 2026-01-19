@@ -39,7 +39,14 @@ public class Projectile : MonoBehaviour
 
         if (health != null)
         {
-            // Ha colpito un PLAYER - infliggi danno e distruggiti
+            // IMPORTANTE: Ignora il proprietario (no autocolpimento!)
+            if (collision.gameObject.CompareTag(ownerTag))
+            {
+                Debug.Log($"Proiettile ignora il proprietario: {collision.gameObject.name}");
+                return; // Non fare nulla se colpisci te stesso
+            }
+
+            // Ha colpito un PLAYER AVVERSARIO - infliggi danno e distruggiti
             if (hasHit) return; // Evita colpi multipli
             hasHit = true;
 
