@@ -763,6 +763,132 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2367933171616278276, guid: 3da486d9433b6fc43bc1c726238c9f98, type: 3}
   m_PrefabInstance: {fileID: 1556784201}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &227682311
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 227682312}
+  - component: {fileID: 227682316}
+  - component: {fileID: 227682315}
+  - component: {fileID: 227682314}
+  - component: {fileID: 227682313}
+  m_Layer: 8
+  m_Name: AmmoWall_Player2 (2)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &227682312
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 227682311}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.0524945, y: 0.020993635, z: 0.55324733, w: 0.83109623}
+  m_LocalPosition: {x: 13.3, y: -1.42, z: 0}
+  m_LocalScale: {x: 1, y: 11.006965, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 867889321}
+  m_LocalEulerAnglesHint: {x: -6.343, y: -1.337, z: 67.376}
+--- !u!114 &227682313
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 227682311}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ed0898640abb1f489cede7210a4db38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerNumber: 2
+  ammoToGive: 1
+  pickupSoundName: ricarica
+  flashColor: {r: 0, g: 0.75398135, b: 1, a: 1}
+  flashDuration: 0.7
+--- !u!65 &227682314
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 227682311}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &227682315
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 227682311}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 2caeb1ec076640347b91a634a78290b2, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &227682316
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 227682311}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &231445467
 GameObject:
   m_ObjectHideFlags: 0
@@ -1192,6 +1318,132 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 753390768a582b245a75ac71dcc16ab6, type: 3}
+--- !u!1 &374098556
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 374098557}
+  - component: {fileID: 374098561}
+  - component: {fileID: 374098560}
+  - component: {fileID: 374098559}
+  - component: {fileID: 374098558}
+  m_Layer: 8
+  m_Name: AmmoWall_Player2 (1)
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &374098557
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 374098556}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0.0524945, y: 0.020993635, z: 0.55324733, w: 0.83109623}
+  m_LocalPosition: {x: 13.3, y: 1.442, z: 0}
+  m_LocalScale: {x: 1, y: 11.006965, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 867889321}
+  m_LocalEulerAnglesHint: {x: -6.343, y: -1.337, z: 67.376}
+--- !u!114 &374098558
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 374098556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1ed0898640abb1f489cede7210a4db38, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerNumber: 2
+  ammoToGive: 1
+  pickupSoundName: ricarica
+  flashColor: {r: 0, g: 0.75398135, b: 1, a: 1}
+  flashDuration: 0.7
+--- !u!65 &374098559
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 374098556}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!23 &374098560
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 374098556}
+  m_Enabled: 0
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: 2caeb1ec076640347b91a634a78290b2, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_AdditionalVertexStreams: {fileID: 0}
+--- !u!33 &374098561
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 374098556}
+  m_Mesh: {fileID: 10202, guid: 0000000000000000e000000000000000, type: 0}
 --- !u!1 &374901097
 GameObject:
   m_ObjectHideFlags: 0
@@ -5411,7 +5663,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6720827010208185199, guid: dfed33317301e7a4d832d18db0d346ac, type: 3}
       propertyPath: sounds.Array.size
-      value: 23
+      value: 24
       objectReference: {fileID: 0}
     - target: {fileID: 6720827010208185199, guid: dfed33317301e7a4d832d18db0d346ac, type: 3}
       propertyPath: sounds.Array.data[6].loop
@@ -5432,10 +5684,10 @@ PrefabInstance:
     - target: {fileID: 6720827010208185199, guid: dfed33317301e7a4d832d18db0d346ac, type: 3}
       propertyPath: sounds.Array.data[23].clip
       value: 
-      objectReference: {fileID: 8300000, guid: 964a8d283cd28ec4c9da6d5a406067d3, type: 3}
+      objectReference: {fileID: 8300000, guid: d133af473607a934583a0206ee7f2259, type: 3}
     - target: {fileID: 6720827010208185199, guid: dfed33317301e7a4d832d18db0d346ac, type: 3}
       propertyPath: sounds.Array.data[23].name
-      value: Spawn Ostacolo
+      value: Portale
       objectReference: {fileID: 0}
     - target: {fileID: 6720827010208185199, guid: dfed33317301e7a4d832d18db0d346ac, type: 3}
       propertyPath: sounds.Array.data[0].volume
@@ -5762,6 +6014,12 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5783030180050334250, guid: ace504499fdcb39488ab9eb4377721df, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1494079374}
+    - targetCorrespondingSourceObject: {fileID: 5783030180050334250, guid: ace504499fdcb39488ab9eb4377721df, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 374098557}
+    - targetCorrespondingSourceObject: {fileID: 5783030180050334250, guid: ace504499fdcb39488ab9eb4377721df, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 227682312}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ace504499fdcb39488ab9eb4377721df, type: 3}
 --- !u!1 &7807228911174062079 stripped

@@ -156,7 +156,7 @@ MonoBehaviour:
   flashDuration: 0.1
   maintainEntryDirection: 1
   exitOffset: 1
-  teleportSoundName: 
+  teleportSoundName: Portale
 --- !u!1001 &5404408079078890432
 PrefabInstance:
   m_ObjectHideFlags: 0
