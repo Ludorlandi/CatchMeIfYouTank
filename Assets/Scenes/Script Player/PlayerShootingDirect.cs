@@ -52,7 +52,7 @@ public class PlayerShootingDirect : MonoBehaviour
     [SerializeField] private float shootShakeDuration = 0.1f; // Durata shake sparo
     [SerializeField] private float shootShakeIntensity = 0.15f; // Intensità shake sparo (leggero!)
 
-    private int currentAmmo;
+    public int currentAmmo;
     private bool isCharging = false;
     private float chargeStartTime;
     private float lastShootTime;
