@@ -2227,7 +2227,7 @@ MonoBehaviour:
   layouts:
   - layoutName: 'Rimbalzo centrale '
     obstacles:
-    - obstaclePrefab: {fileID: 5990823893442332854, guid: b038cf04be19f83408b97bf558b475d0, type: 3}
+    - obstaclePrefab: {fileID: 7650755979879679733, guid: 480ea85be4e938f48bb390875541cacf, type: 3}
       position: {x: 0.8, y: 4, z: 0}
       rotation: {x: 0, y: 0, z: 0}
   - layoutName: PowerWall
@@ -2247,7 +2247,7 @@ MonoBehaviour:
       rotation: {x: 0, y: 0, z: 0}
   - layoutName: Rimbalz 2
     obstacles:
-    - obstaclePrefab: {fileID: 5990823893442332854, guid: b038cf04be19f83408b97bf558b475d0, type: 3}
+    - obstaclePrefab: {fileID: 7650755979879679733, guid: 480ea85be4e938f48bb390875541cacf, type: 3}
       position: {x: 1.37, y: -3.66, z: 0}
       rotation: {x: 0, y: 0, z: 0}
   - layoutName: portali
@@ -5101,6 +5101,10 @@ PrefabInstance:
       propertyPath: deceleration
       value: 80
       objectReference: {fileID: 0}
+    - target: {fileID: 5370008980773233997, guid: e9258de05af860848bdb467412829b1d, type: 3}
+      propertyPath: modelRotationOffset.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5885196597234021987, guid: e9258de05af860848bdb467412829b1d, type: 3}
       propertyPath: deathSoundName
       value: Death
@@ -5333,63 +5337,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfed33317301e7a4d832d18db0d346ac, type: 3}
---- !u!1001 &1755518306023196531
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 4979322041143247372, guid: 480ea85be4e938f48bb390875541cacf, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4979322041143247372, guid: 480ea85be4e938f48bb390875541cacf, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4979322041143247372, guid: 480ea85be4e938f48bb390875541cacf, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4979322041143247372, guid: 480ea85be4e938f48bb390875541cacf, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4979322041143247372, guid: 480ea85be4e938f48bb390875541cacf, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4979322041143247372, guid: 480ea85be4e938f48bb390875541cacf, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4979322041143247372, guid: 480ea85be4e938f48bb390875541cacf, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4979322041143247372, guid: 480ea85be4e938f48bb390875541cacf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4979322041143247372, guid: 480ea85be4e938f48bb390875541cacf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4979322041143247372, guid: 480ea85be4e938f48bb390875541cacf, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 7650755979879679733, guid: 480ea85be4e938f48bb390875541cacf, type: 3}
-      propertyPath: m_Name
-      value: Barricata
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 480ea85be4e938f48bb390875541cacf, type: 3}
 --- !u!1001 &2143977320677616901
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5562,6 +5509,10 @@ PrefabInstance:
       propertyPath: moveOnXYPlane
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 9119311814150077359, guid: 4cfb57388c70ca64c82b696f6c818be3, type: 3}
+      propertyPath: modelRotationOffset.z
+      value: 180
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects:
     - {fileID: 6813236859452546177, guid: 4cfb57388c70ca64c82b696f6c818be3, type: 3}
@@ -5702,4 +5653,3 @@ SceneRoots:
   - {fileID: 302093209}
   - {fileID: 183834562}
   - {fileID: 1198139015}
-  - {fileID: 1755518306023196531}
