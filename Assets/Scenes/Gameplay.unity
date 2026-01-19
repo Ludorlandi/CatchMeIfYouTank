@@ -296,7 +296,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1595871974710121039, guid: 857baa98896f62f4281289b4803d62ca, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 19.91
+      value: 19.86
       objectReference: {fileID: 0}
     - target: {fileID: 1595871974710121039, guid: 857baa98896f62f4281289b4803d62ca, type: 3}
       propertyPath: m_LocalPosition.y
@@ -304,7 +304,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1595871974710121039, guid: 857baa98896f62f4281289b4803d62ca, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0.19
+      value: 0.04
       objectReference: {fileID: 0}
     - target: {fileID: 1595871974710121039, guid: 857baa98896f62f4281289b4803d62ca, type: 3}
       propertyPath: m_LocalRotation.w
@@ -670,14 +670,14 @@ RectTransform:
   m_GameObject: {fileID: 260941963}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.19, y: 0.19, z: 0.19}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 2069318769}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -175, y: -59.30005}
+  m_AnchoredPosition: {x: -368, y: -37.5}
   m_SizeDelta: {x: 300, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &260941965
@@ -1075,8 +1075,8 @@ MonoBehaviour:
   player2LivesContainer: {fileID: 260941964}
   winPanel: {fileID: 1578905236}
   victoryImage: {fileID: 0}
-  player1VictorySprite: {fileID: 0}
-  player2VictorySprite: {fileID: 0}
+  player1VictorySprite: {fileID: 21300000, guid: ff382e0436f91794a9e28897d9edc1c9, type: 3}
+  player2VictorySprite: {fileID: 21300000, guid: ff382e0436f91794a9e28897d9edc1c9, type: 3}
   objectsToDisableOnVictory: []
   victorySoundName: 
 --- !u!4 &374901099
@@ -1185,13 +1185,13 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 410087039}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.40821788, y: -0.23456968, z: 0.10938163, w: 0.8754261}
+  m_LocalRotation: {x: 0.042132866, y: -0.2585727, z: 0.0112894615, w: 0.96500653}
   m_LocalPosition: {x: 0, y: 3, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
+  m_LocalEulerAnglesHint: {x: 5, y: -30, z: 0}
 --- !u!114 &410087042
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1631,15 +1631,15 @@ RectTransform:
   m_GameObject: {fileID: 652826111}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: -0.19, y: 0.19, z: -0.19}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 2069318769}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 173.9, y: -57.5}
-  m_SizeDelta: {x: 388, y: 677}
+  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: -1548.08, y: -37.5}
+  m_SizeDelta: {x: 300, y: 60}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &652826113
 MonoBehaviour:
@@ -2227,7 +2227,7 @@ MonoBehaviour:
   layouts:
   - layoutName: 'Rimbalzo centrale '
     obstacles:
-    - obstaclePrefab: {fileID: 568976232059262121, guid: e01833def3db5f04a9317e0dd3da95cf, type: 3}
+    - obstaclePrefab: {fileID: 5990823893442332854, guid: b038cf04be19f83408b97bf558b475d0, type: 3}
       position: {x: 0.8, y: 4, z: 0}
       rotation: {x: 0, y: 0, z: 0}
   - layoutName: PowerWall
@@ -2247,7 +2247,7 @@ MonoBehaviour:
       rotation: {x: 0, y: 0, z: 0}
   - layoutName: Rimbalz 2
     obstacles:
-    - obstaclePrefab: {fileID: 5167800887795103937, guid: 3da486d9433b6fc43bc1c726238c9f98, type: 3}
+    - obstaclePrefab: {fileID: 5990823893442332854, guid: b038cf04be19f83408b97bf558b475d0, type: 3}
       position: {x: 1.37, y: -3.66, z: 0}
       rotation: {x: 0, y: 0, z: 0}
   - layoutName: portali
@@ -5333,6 +5333,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: dfed33317301e7a4d832d18db0d346ac, type: 3}
+--- !u!1001 &1755518306023196531
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4979322041143247372, guid: 480ea85be4e938f48bb390875541cacf, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4979322041143247372, guid: 480ea85be4e938f48bb390875541cacf, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4979322041143247372, guid: 480ea85be4e938f48bb390875541cacf, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4979322041143247372, guid: 480ea85be4e938f48bb390875541cacf, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4979322041143247372, guid: 480ea85be4e938f48bb390875541cacf, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4979322041143247372, guid: 480ea85be4e938f48bb390875541cacf, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4979322041143247372, guid: 480ea85be4e938f48bb390875541cacf, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4979322041143247372, guid: 480ea85be4e938f48bb390875541cacf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4979322041143247372, guid: 480ea85be4e938f48bb390875541cacf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4979322041143247372, guid: 480ea85be4e938f48bb390875541cacf, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7650755979879679733, guid: 480ea85be4e938f48bb390875541cacf, type: 3}
+      propertyPath: m_Name
+      value: Barricata
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 480ea85be4e938f48bb390875541cacf, type: 3}
 --- !u!1001 &2143977320677616901
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5645,3 +5702,4 @@ SceneRoots:
   - {fileID: 302093209}
   - {fileID: 183834562}
   - {fileID: 1198139015}
+  - {fileID: 1755518306023196531}
