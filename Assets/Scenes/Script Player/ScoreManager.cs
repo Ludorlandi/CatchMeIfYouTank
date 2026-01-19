@@ -193,7 +193,7 @@ public class ScoreManager : MonoBehaviour
         Debug.Log($"{winner} WINS! Gioco bloccato.");
 
         // BLOCCA il gioco
-        Time.timeScale = 0f; // Ferma completamente il tempo di gioco
+        Time.timeScale = 1f; // Ferma completamente il tempo di gioco
 
         // Disabilita tutti gli oggetti di gioco (player, spawner, etc)
         DisableGameplay();
