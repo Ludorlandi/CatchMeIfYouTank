@@ -857,7 +857,7 @@ MonoBehaviour:
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
-  m_ReverseArrangement: 0
+  m_ReverseArrangement: 1
 --- !u!114 &260941966
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1221,7 +1221,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f1d98929f1fc9d43a23b6277def8b0b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startingLives: 5
+  startingLives: 0
+  livesToWin: 5
   player1LivesContainer: {fileID: 652826112}
   lifeIconPrefab: {fileID: 4404100334886953128, guid: c3734fa8c74c53347aafd62d8a7e23a6, type: 3}
   player2LivesContainer: {fileID: 260941964}

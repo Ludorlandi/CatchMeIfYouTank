@@ -8,6 +8,10 @@ public class Projectile : MonoBehaviour
     [SerializeField] private float minVelocity = 3f; // Velocità minima per evitare che si fermi
     [SerializeField] private int damage = 1; // Danno del proiettile (default 1 vita)
 
+    [Header("Visual Rotation")]
+    [SerializeField] private bool rotateTowardsDirection = true; // Ruota verso direzione movimento
+    [SerializeField] private float rotationSpeed = 20f; // Velocità rotazione (più alto = più veloce)
+
     [Header("Audio (Opzionale)")]
     [SerializeField] private string[] bounceSoundNames = new string[10]; // Array di 10 suoni rimbalzo
 
@@ -29,6 +33,23 @@ public class Projectile : MonoBehaviour
             {
                 rb.linearVelocity = rb.linearVelocity.normalized * minVelocity;
             }
+        }
+
+        // ROTAZIONE VISIVA - ruota verso la direzione del movimento
+        if (rotateTowardsDirection && rb != null && rb.linearVelocity.magnitude > 0.1f)
+        {
+            // Calcola angolo target basato sulla velocità
+            float targetAngle = Mathf.Atan2(rb.linearVelocity.y, rb.linearVelocity.x) * Mathf.Rad2Deg;
+
+            // Rotazione target (sull'asse Z per giochi 2D)
+            Quaternion targetRotation = Quaternion.Euler(0f, 0f, targetAngle);
+
+            // Interpola smooth verso la rotazione target
+            transform.rotation = Quaternion.Slerp(
+                transform.rotation,
+                targetRotation,
+                rotationSpeed * Time.fixedDeltaTime
+            );
         }
     }
 
