@@ -12,9 +12,10 @@ GameObject:
   - component: {fileID: 4696319081801334956}
   - component: {fileID: 864570702560279720}
   - component: {fileID: 987065592882355927}
+  - component: {fileID: 3226248184305169445}
   m_Layer: 0
   m_Name: Barricata
-  m_TagString: Untagged
+  m_TagString: Grabbable
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -109,6 +110,33 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1.1443868, y: 1, z: 1}
   m_Center: {x: 0.006181761, y: 0, z: 0}
+--- !u!54 &3226248184305169445
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7650755979879679733}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 120
+  m_CollisionDetection: 0
 --- !u!1001 &7757368243789662268
 PrefabInstance:
   m_ObjectHideFlags: 0
