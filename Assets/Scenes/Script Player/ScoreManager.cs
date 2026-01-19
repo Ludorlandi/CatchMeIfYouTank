@@ -16,10 +16,8 @@ public class ScoreManager : MonoBehaviour
     [SerializeField] private Transform player2LivesContainer;
 
     [Header("Win Panel")]
-    [SerializeField] private GameObject winPanel; // Panel che mostra l'immagine di vittoria
-    [SerializeField] private Image victoryImage; // Image component che cambia sprite
-    [SerializeField] private Sprite player1VictorySprite; // Immagine quando vince Player 1
-    [SerializeField] private Sprite player2VictorySprite; // Immagine quando vince Player 2
+    [SerializeField] private GameObject player1WinPanel; // Panel quando vince Player 1
+    [SerializeField] private GameObject player2WinPanel; // Panel quando vince Player 2
 
     [Header("Game Objects to Disable on Victory")]
     [SerializeField] private GameObject[] objectsToDisableOnVictory; // Player, spawner, etc
@@ -58,9 +56,15 @@ public class ScoreManager : MonoBehaviour
 
         CreateLifeIcons();
 
-        if (winPanel != null)
+        // Nascondi entrambi i pannelli all'inizio
+        if (player1WinPanel != null)
         {
-            winPanel.SetActive(false);
+            player1WinPanel.SetActive(false);
+        }
+
+        if (player2WinPanel != null)
+        {
+            player2WinPanel.SetActive(false);
         }
     }
 
@@ -155,25 +159,16 @@ public class ScoreManager : MonoBehaviour
             SoundManager.Instance.Play(victorySoundName);
         }
 
-        // Mostra pannello con immagine di vittoria
-        if (winPanel != null)
+        // Mostra il pannello corretto in base al vincitore
+        if (winner == "Player 1" && player1WinPanel != null)
         {
-            winPanel.SetActive(true);
+            player1WinPanel.SetActive(true);
+            Debug.Log("[VICTORY] Mostrato WinPanel 1");
         }
-
-        // Cambia l'immagine in base al vincitore
-        if (victoryImage != null)
+        else if (winner == "Player 2" && player2WinPanel != null)
         {
-            if (winner == "Player 1" && player1VictorySprite != null)
-            {
-                victoryImage.sprite = player1VictorySprite;
-                Debug.Log("[VICTORY] Mostrata immagine vittoria Player 1");
-            }
-            else if (winner == "Player 2" && player2VictorySprite != null)
-            {
-                victoryImage.sprite = player2VictorySprite;
-                Debug.Log("[VICTORY] Mostrata immagine vittoria Player 2");
-            }
+            player2WinPanel.SetActive(true);
+            Debug.Log("[VICTORY] Mostrato WinPanel 2");
         }
 
         Debug.Log("Premi R per ricominciare");
@@ -269,9 +264,15 @@ public class ScoreManager : MonoBehaviour
             icon.SetActive(true);
         }
 
-        if (winPanel != null)
+        // Nascondi entrambi i pannelli
+        if (player1WinPanel != null)
         {
-            winPanel.SetActive(false);
+            player1WinPanel.SetActive(false);
+        }
+
+        if (player2WinPanel != null)
+        {
+            player2WinPanel.SetActive(false);
         }
     }
 }
