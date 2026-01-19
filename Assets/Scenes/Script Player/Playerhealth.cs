@@ -110,7 +110,11 @@ public class PlayerHealth : MonoBehaviour
         // Nel nuovo sistema: killer guadagna +1 vita
         if (ScoreManager.Instance != null)
         {
-            ScoreManager.Instance.OnPlayerDeath(gameObject.tag, killerTag);
+            for (int i = 0; i < damage; i++)
+            {
+                ScoreManager.Instance.OnPlayerDeath(gameObject.tag, killerTag);
+            }
+            
             Debug.Log($"[DEATH] {gameObject.name} ucciso da {killerTag}");
         }
 
