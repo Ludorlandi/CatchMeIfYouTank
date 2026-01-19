@@ -32,7 +32,7 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private float shakeDuration = 0.4f; // Durata shake
     [SerializeField] private float shakeIntensity = 0.8f; // Intensità shake
 
-    private bool isDead = false;
+    public bool isDead = false;
     private bool isInvincible = false; // Stato invincibilità
 
     // Proprietà pubblica per controllare invincibilità
