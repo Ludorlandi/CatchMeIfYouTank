@@ -19,8 +19,13 @@ public class PlayerHealth : MonoBehaviour
     [SerializeField] private int ammoOnHit = 1; // Munizioni che ricevi quando vieni colpito
 
     [Header("Audio (Opzionale)")]
-    [SerializeField] private string deathSoundName = ""; // Suono quando muore
+    [SerializeField] private string deathSoundName = ""; // Suono quando muore (SoundManager)
+    [SerializeField] private AudioClip deathSoundClip; // Clip diretto per morte (bypass SoundManager)
     [SerializeField] private string respawnSoundName = ""; // Suono quando respawna
+
+    [Header("Visual Effects")]
+    [SerializeField] private GameObject explosionPrefab; // Prefab esplosione animata
+    [SerializeField] private float explosionLifetime = 2f; // Durata esplosione prima di distruggersi
 
     [Header("Screen Shake on Death")]
     [SerializeField] private bool shakeOnDeath = true; // Shake quando muore
@@ -111,6 +116,17 @@ public class PlayerHealth : MonoBehaviour
 
         isDead = true;
 
+        // ESPLOSIONE VISIVA!
+        if (explosionPrefab != null)
+        {
+            GameObject explosion = Instantiate(explosionPrefab, transform.position, Quaternion.identity);
+
+            // Distruggi l'esplosione dopo un po' (se non ha script che si autodistrugge)
+            Destroy(explosion, explosionLifetime);
+
+            Debug.Log($"[DEATH] Esplosione spawnata a {transform.position}");
+        }
+
         // SCREEN SHAKE!
         if (shakeOnDeath)
         {
@@ -134,23 +150,23 @@ public class PlayerHealth : MonoBehaviour
             }
         }
 
-        // Suona il suono della morte PRIMA di disabilitare (così non viene fermato)
-        Debug.Log($"[DEATH SOUND] deathSoundName = '{deathSoundName}'");
-        Debug.Log($"[DEATH SOUND] IsNullOrEmpty? {string.IsNullOrEmpty(deathSoundName)}");
-        Debug.Log($"[DEATH SOUND] SoundManager.Instance = {SoundManager.Instance}");
-
-        if (!string.IsNullOrEmpty(deathSoundName) && SoundManager.Instance != null)
+        // Suona il suono della morte PRIMA di disabilitare
+        // Prova prima con AudioClip diretto, poi fallback a SoundManager
+        if (deathSoundClip != null)
         {
-            Debug.Log($"[DEATH SOUND] Chiamando PlayAtPosition('{deathSoundName}')");
-            // Usa PlayAtPosition invece di Play - crea un AudioSource temporaneo che non viene fermato
-            SoundManager.Instance.PlayAtPosition(deathSoundName, transform.position);
+            // METODO DIRETTO - Crea AudioSource temporaneo che suona e si autodistrugge
+            AudioSource.PlayClipAtPoint(deathSoundClip, transform.position, 1f);
+            Debug.Log($"[DEATH SOUND] Suonato clip diretto: {deathSoundClip.name}");
+        }
+        else if (!string.IsNullOrEmpty(deathSoundName) && SoundManager.Instance != null)
+        {
+            Debug.Log($"[DEATH SOUND] Chiamando Play('{deathSoundName}')");
+            // Fallback a SoundManager
+            SoundManager.Instance.Play(deathSoundName);
         }
         else
         {
-            if (string.IsNullOrEmpty(deathSoundName))
-                Debug.LogWarning("[DEATH SOUND] Nome suono VUOTO!");
-            if (SoundManager.Instance == null)
-                Debug.LogWarning("[DEATH SOUND] SoundManager è NULL!");
+            Debug.LogWarning("[DEATH SOUND] Nessun suono di morte assegnato!");
         }
 
         // Disabilita il player (dopo aver suonato il suono!)

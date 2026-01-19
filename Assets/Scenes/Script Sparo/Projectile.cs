@@ -12,6 +12,12 @@ public class Projectile : MonoBehaviour
     [SerializeField] private bool rotateTowardsDirection = true; // Ruota verso direzione movimento
     [SerializeField] private float rotationSpeed = 20f; // Velocità rotazione (più alto = più veloce)
 
+    [Header("Visual Color")]
+    [SerializeField] private bool colorByOwner = true; // Colora in base al proprietario
+    [SerializeField] private Color player1Color = Color.blue; // Colore Player 1
+    [SerializeField] private Color player2Color = Color.red; // Colore Player 2
+    [SerializeField] private Color neutralColor = Color.white; // Colore proiettili senza proprietario
+
     [Header("Audio (Opzionale)")]
     [SerializeField] private string[] bounceSoundNames = new string[10]; // Array di 10 suoni rimbalzo
 
@@ -21,6 +27,40 @@ public class Projectile : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+
+        // Colora il proiettile in base al proprietario
+        if (colorByOwner)
+        {
+            ApplyOwnerColor();
+        }
+    }
+
+    void ApplyOwnerColor()
+    {
+        Color targetColor = neutralColor;
+
+        // Determina colore in base al proprietario
+        if (ownerTag == "Player1" || ownerTag == "Player 1")
+        {
+            targetColor = player1Color;
+        }
+        else if (ownerTag == "Player2" || ownerTag == "Player 2")
+        {
+            targetColor = player2Color;
+        }
+
+        // Applica colore a tutti i Renderer del proiettile
+        Renderer[] renderers = GetComponentsInChildren<Renderer>();
+        foreach (Renderer rend in renderers)
+        {
+            // Se ha un material, applica il colore
+            if (rend.material != null)
+            {
+                rend.material.color = targetColor;
+            }
+        }
+
+        Debug.Log($"Proiettile colorato: Owner={ownerTag}, Color={targetColor}");
     }
 
     void FixedUpdate()

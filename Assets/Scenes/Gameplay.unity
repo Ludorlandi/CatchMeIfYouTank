@@ -5259,9 +5259,17 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5885196597234021987, guid: e9258de05af860848bdb467412829b1d, type: 3}
+      propertyPath: deathSoundClip
+      value: 
+      objectReference: {fileID: 8300000, guid: c2a55efe0d85e534b90abf62e88aa975, type: 3}
+    - target: {fileID: 5885196597234021987, guid: e9258de05af860848bdb467412829b1d, type: 3}
       propertyPath: deathSoundName
-      value: Death
+      value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 5885196597234021987, guid: e9258de05af860848bdb467412829b1d, type: 3}
+      propertyPath: explosionPrefab
+      value: 
+      objectReference: {fileID: 4914716930404006884, guid: aed12c224fbc8704d8eaa07a52e88f44, type: 3}
     - target: {fileID: 6130718575384613094, guid: e9258de05af860848bdb467412829b1d, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -5419,7 +5427,7 @@ PrefabInstance:
       objectReference: {fileID: 8300000, guid: c2a55efe0d85e534b90abf62e88aa975, type: 3}
     - target: {fileID: 6720827010208185199, guid: dfed33317301e7a4d832d18db0d346ac, type: 3}
       propertyPath: sounds.Array.data[22].name
-      value: Death
+      value: Esplosione
       objectReference: {fileID: 0}
     - target: {fileID: 6720827010208185199, guid: dfed33317301e7a4d832d18db0d346ac, type: 3}
       propertyPath: sounds.Array.data[23].clip
@@ -5479,7 +5487,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6720827010208185199, guid: dfed33317301e7a4d832d18db0d346ac, type: 3}
       propertyPath: sounds.Array.data[22].volume
-      value: 0.6
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6720827010208185199, guid: dfed33317301e7a4d832d18db0d346ac, type: 3}
       propertyPath: sounds.Array.data[23].volume
@@ -5640,12 +5648,16 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7997306621431044250, guid: 4cfb57388c70ca64c82b696f6c818be3, type: 3}
       propertyPath: deathSoundName
-      value: Death
+      value: Esplosione
       objectReference: {fileID: 0}
     - target: {fileID: 7997306621431044250, guid: 4cfb57388c70ca64c82b696f6c818be3, type: 3}
       propertyPath: shakeIntensity
       value: 0.8
       objectReference: {fileID: 0}
+    - target: {fileID: 7997306621431044250, guid: 4cfb57388c70ca64c82b696f6c818be3, type: 3}
+      propertyPath: explosionPrefab
+      value: 
+      objectReference: {fileID: 4914716930404006884, guid: aed12c224fbc8704d8eaa07a52e88f44, type: 3}
     - target: {fileID: 8111406078365500929, guid: 4cfb57388c70ca64c82b696f6c818be3, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.069
