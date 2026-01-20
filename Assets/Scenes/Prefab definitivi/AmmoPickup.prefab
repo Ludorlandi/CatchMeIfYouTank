@@ -129,7 +129,7 @@ MonoBehaviour:
   rotationSpeed: 100
   bobSpeed: 2
   bobHeight: 0.3
-  pickupSoundName: 
+  pickupSoundName: AmmoPickup
 --- !u!54 &-3029486481863910013
 Rigidbody:
   m_ObjectHideFlags: 0

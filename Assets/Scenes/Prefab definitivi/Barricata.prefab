@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 864570702560279720}
   - component: {fileID: 987065592882355927}
   - component: {fileID: 3226248184305169445}
+  - component: {fileID: -550031354649678211}
   m_Layer: 0
   m_Name: Barricata
   m_TagString: Grabbable
@@ -99,16 +100,16 @@ BoxCollider:
   m_Material: {fileID: 13400000, guid: d1cf49bbcde9d4740a0f424e0fb6e729, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 128
   m_ExcludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_LayerOverridePriority: 0
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 1.1443868, y: 1, z: 1}
+  m_Size: {x: 1.04, y: 0.9, z: 0.9}
   m_Center: {x: 0.006181761, y: 0, z: 0}
 --- !u!54 &3226248184305169445
 Rigidbody:
@@ -126,7 +127,7 @@ Rigidbody:
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
   m_IncludeLayers:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 64
   m_ExcludeLayers:
     serializedVersion: 2
     m_Bits: 0
@@ -137,6 +138,27 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 120
   m_CollisionDetection: 0
+--- !u!65 &-550031354649678211
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7650755979879679733}
+  m_Material: {fileID: 13400000, guid: 960e0343086ad7941ab72fdd2a0248f7, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 64
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 128
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1.14, y: 1, z: 1}
+  m_Center: {x: 0.006181761, y: 0, z: 0}
 --- !u!1001 &7757368243789662268
 PrefabInstance:
   m_ObjectHideFlags: 0

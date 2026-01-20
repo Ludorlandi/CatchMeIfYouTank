@@ -2715,6 +2715,32 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5727149235465324518, guid: 4cfb57388c70ca64c82b696f6c818be3, type: 3}
   m_PrefabInstance: {fileID: 2143977320677616901}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &714123868 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5167800887795103937, guid: 3da486d9433b6fc43bc1c726238c9f98, type: 3}
+  m_PrefabInstance: {fileID: 1556784201}
+  m_PrefabAsset: {fileID: 0}
+--- !u!65 &714123873
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 714123868}
+  m_Material: {fileID: 13400000, guid: d1cf49bbcde9d4740a0f424e0fb6e729, type: 2}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 1
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1.3581305, z: 1}
+  m_Center: {x: 0, y: 0.10363024, z: 0}
 --- !u!1 &744664556
 GameObject:
   m_ObjectHideFlags: 0
@@ -5307,6 +5333,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 379595847785877184, guid: 3da486d9433b6fc43bc1c726238c9f98, type: 3}
+      propertyPath: m_Size.x
+      value: 0.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 379595847785877184, guid: 3da486d9433b6fc43bc1c726238c9f98, type: 3}
+      propertyPath: m_Size.y
+      value: 1.2
+      objectReference: {fileID: 0}
     - target: {fileID: 2367933171616278276, guid: 3da486d9433b6fc43bc1c726238c9f98, type: 3}
       propertyPath: m_LocalScale.x
       value: 26.947453
@@ -5387,7 +5421,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2367933171616278276, guid: 3da486d9433b6fc43bc1c726238c9f98, type: 3}
       insertIndex: -1
       addedObject: {fileID: 588903092}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5167800887795103937, guid: 3da486d9433b6fc43bc1c726238c9f98, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 714123873}
   m_SourcePrefab: {fileID: 100100000, guid: 3da486d9433b6fc43bc1c726238c9f98, type: 3}
 --- !u!1 &1563062609
 GameObject:
@@ -7642,7 +7679,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6720827010208185199, guid: dfed33317301e7a4d832d18db0d346ac, type: 3}
       propertyPath: sounds.Array.size
-      value: 27
+      value: 28
       objectReference: {fileID: 0}
     - target: {fileID: 6720827010208185199, guid: dfed33317301e7a4d832d18db0d346ac, type: 3}
       propertyPath: sounds.Array.data[6].loop
@@ -7693,6 +7730,14 @@ PrefabInstance:
       value: Detach
       objectReference: {fileID: 0}
     - target: {fileID: 6720827010208185199, guid: dfed33317301e7a4d832d18db0d346ac, type: 3}
+      propertyPath: sounds.Array.data[27].clip
+      value: 
+      objectReference: {fileID: 8300000, guid: 08c1b04c8fa732b4a89adb80846a34b1, type: 3}
+    - target: {fileID: 6720827010208185199, guid: dfed33317301e7a4d832d18db0d346ac, type: 3}
+      propertyPath: sounds.Array.data[27].name
+      value: AmmoPickup
+      objectReference: {fileID: 0}
+    - target: {fileID: 6720827010208185199, guid: dfed33317301e7a4d832d18db0d346ac, type: 3}
       propertyPath: sounds.Array.data[0].volume
       value: 0.8
       objectReference: {fileID: 0}
@@ -7718,6 +7763,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6720827010208185199, guid: dfed33317301e7a4d832d18db0d346ac, type: 3}
       propertyPath: sounds.Array.data[26].pitch
+      value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6720827010208185199, guid: dfed33317301e7a4d832d18db0d346ac, type: 3}
+      propertyPath: sounds.Array.data[27].pitch
       value: 1.5
       objectReference: {fileID: 0}
     - target: {fileID: 6720827010208185199, guid: dfed33317301e7a4d832d18db0d346ac, type: 3}
@@ -7771,6 +7820,10 @@ PrefabInstance:
     - target: {fileID: 6720827010208185199, guid: dfed33317301e7a4d832d18db0d346ac, type: 3}
       propertyPath: sounds.Array.data[26].volume
       value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6720827010208185199, guid: dfed33317301e7a4d832d18db0d346ac, type: 3}
+      propertyPath: sounds.Array.data[27].volume
+      value: 0.6
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
