@@ -3411,7 +3411,7 @@ MonoBehaviour:
   randomizeLayouts: 1
   spawnAreaCenter: {x: 0, y: 0.75, z: 0}
   spawnAreaSize: {x: 6.7, y: 10, z: -0.25}
-  minDistanceBetweenObstacles: 1
+  minDistanceBetweenObstacles: 0
   spawnIndicatorPrefab: {fileID: 504222817367638502, guid: dc9f1eaa974369142b63278789377b68, type: 3}
   indicatorDuration: 2
   indicatorColor: {r: 1, g: 0.92156863, b: 0.015686275, a: 1}
