@@ -71,6 +71,7 @@ public class PlayerMovementDirect : MonoBehaviour
         if (gamepadIndex < gamepads.Count)
         {
             Gamepad gamepad = gamepads[gamepadIndex];
+            
             moveInput = gamepad.leftStick.ReadValue();
         }
         else

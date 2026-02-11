@@ -1,0 +1,52 @@
+﻿@startuml
+
+class Player <<(M , lightblue)>>
+{
+    -List<Bullet> : _bullets    
+    -int : _hp
+    +void : Shoot()   
+}
+
+class PlayerController <<(M , lightblue)>>
+{
+    -float : _speed
+    +void : Move()
+}
+
+interface IHittable
+{
+    +void : OnHit()
+}
+
+
+package Projectile{
+    
+    class Bullet <<(M , lightblue)>>
+    {
+        -BulletData : _bulletData
+        +void : Init(BulletData)
+    }
+    
+    class BulletData <<(S , red)>>
+    {
+        +GameObject : BulletPrefab
+        +int : Damage
+        +float : Speed
+       
+    }
+}
+
+
+package Buffs
+{
+    abstract class ABuff <<(M , lightblue)>>
+    {
+        
+    }
+}
+
+
+BulletData -* Bullet
+
+Player -> IHittable  : Implements 
+@enduml
